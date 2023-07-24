@@ -43,12 +43,18 @@ style: |
 
 ---
 # Introduction
-- Traditional shopping requires going to physical stores
-- Time consuming, frustrating, limited selection
-- Online shopping is more convenient but has limitations
-- Hard to find right fit and style without trying on 
+---
+# Motivation
 
-**=> Need for virtual try-on to bridge gap between online and offline shopping**
+![w:610 left](Traditional%20Shopping.png)
+
+![w:500 right](Online%20Shopping.png)
+
+<div style="color: white; font-size: 30px; margin-top: 500px; display: flex;">
+  <div style="flex: 1; margin-left:150px"><b>Traditional Shopping</b></div>
+  <div style="flex: 1; margin-left:300px"><b>Online Shopping</b></div>
+</div>
+
 
 ---
 # Virtual Try-On
@@ -60,31 +66,17 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 ---
 
-![w:610 left](Traditional%20Shopping.png)
-
-![w:500 right](Online%20Shopping.png)
-
-<div style="color: white; font-size: 30px; margin-top: 500px; display: flex;">
-  <div style="flex: 1; margin-left:150px"><b>Traditional Shopping</b></div>
-  <div style="flex: 1; margin-left:300px"><b>Online Shopping</b></div>
-</div>
-
----
-
 # Our Approach
 - Focus on HR-VITON model [1] for image-based virtual try-on
 - Conduct experiments exploring impact of loss functions:
-  - Perceptual loss
-  - Adversarial loss 
-  - Feature matching loss
 - Develop web application for users to experience virtual try-on process
 
 ---
 # Outline
-- Review related works in virtual try-on technology
-- Provide foundation on GANs and their application 
-- Describe implementation and training of HR-VITON model
-- Present experiments analyzing effects of different loss functions
+- Review related works 
+- Provide foundation 
+- Describe implementation and training 
+- Present experiments of different loss functions
 - Demonstrate web application with user interface
 
 ---
