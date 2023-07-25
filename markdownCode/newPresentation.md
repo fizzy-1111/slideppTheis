@@ -64,6 +64,14 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 
 ---
+# Virtual Try-On
+- Digitally trying on garments or accessories in a virtual environment
+- Uses images of person and clothing item
+- Processes images to create realistic representation
+
+Key challenge: Variability in images (angles, body shapes, resolutions, backgrounds) can lead to inaccurate outputs
+
+---
 
 # Our Approach
 - Focus on HR-VITON model for image-based virtual try-on
@@ -274,10 +282,18 @@ Help address vanishing gradients, mode collapse, etc.
 
 ---
 
-![width:700 centernotop](pre-processing_agnostic.png)
+![width:700 centernotop](pre-processing.png)
 
 <div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Preprocessing module </b>
+</div>
+
+---
+
+![width:700 centernotop](pre-processing_agnostic.png)
+
+<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
+  <b>Clothing-agnostic Processing Flow </b>
 </div>
 
 ---
@@ -449,27 +465,31 @@ $$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \ma
 ---
  # Evaluation Metrics
 
- - Structural Similarity Index (SSIM)
- - Mean Squared Error (MSE)
- - Learned Perceptual Image Patch Similarity (LPIPS)
+# Experiments
 
-<!-- # Evaluation Metrics
-
-**Structural Similarity Index (SSIM)** [2]
-
-$$SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$$
-
-**Mean Squared Error (MSE)** [3]
-
-$$MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$$
+- Goal: investigate and improve generator model performance by exploring different loss functions
+- Focus: Loss function of Try-On Image module includes GAN loss, L1 loss, and Feature Matching (FM) loss, each associated with a lambda parameter
+- GAN loss function can be selected between Cross-Entropy (CE) GAN loss, Least Square (LS) GAN loss, and Hinge GAN loss
 
 ---
 
-# Evaluation Metrics
+# Experiments
+Two experiments conducted:
+- Experiment 1:
+Investigate impact of L1 and FM losses on generator performance and find optimal set of lambda values for generator loss function
 
-**Learned Perceptual Image Patch Similarity (LPIPS)** [4] 
+- Experiment 2:
+Analyze specific impact of each GAN loss function in combination with L1 and FM on performance of generator model
 
-$$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
+---
+
+# Experiments
+Training parameters: resolution of 512x384, batch size of 8, total of 30,000 training steps
+
+Evaluation metrics:
+- SSIM: Structural Similarity Index
+- MSE: Mean Squared Error
+- LPIPS: Learned Perceptual Image Patch Similarity
 
 ---
 
@@ -502,6 +522,12 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
 |  | 20 | 0.91985 |0.00257| 0.02488 |
 |  | 30| 0.92091 |0.00257 |0.02335 |
 
+---
+
+# Experiment 1: L1 vs. FM Loss
+## Keys finding
+- L1 and FM losses improve generator performance 
+- FM more impactful than L1
 ---
 
 # Experiment 2: GAN Losses
@@ -539,12 +565,10 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
 
 ---
 
-# Experiment conclusion
-
-- L1 and FM losses improve generator performance 
-- FM more impactful than L1
-- CE GAN + L1 + FM achieves best performance
-- Insights help develop more effective virtual try-on systems
+# Experiment 2: GAN Losses
+## Keys finding
+- GAN loss combined with L1 and FM acan significantly impact the performance of a generator
+- Cross-Entropy (CE) GAN loss function is the most effective for this particular task
 
 ---
 ## Application Overview
@@ -556,22 +580,13 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
 
 ---   
 
-## Application Pipeline
+# Application Pipeline
 
-- App service: User interface
-- Clothmask service: Extract cloth mask 
-- Openpose, Densepose, Human Parse: Generate pose & segmentation
-- Generator service: Generate final image
+![width:900 centernotop](app-pipeline.png)
 
-
----
-## Execution Pipeline
-
-- **Phase 1**: User uploads images
-- **Phase 2**: Generate intermediate inputs 
-- **Phase 3**: 
-  - Run through generator pipeline
-  - Display outputs after each module
+<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
+  <b>Spade Residual Block</b>
+</div>
 
 ---
 ## Implementation Challenges
@@ -614,8 +629,8 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
 - CE GAN + L1 + FM achieves best performance
 
 ---
-
-# Limitations
+# Conclusion
+## Limitations
 
 - HR-VITON model is complex and resource intensive
 - Extensive preprocessing is required
@@ -628,4 +643,4 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$ -->
 - Achieved promising results for virtual try-on application
 - Provided insights into effectiveness of loss functions
 - Web application makes research accessible
-- Advancement of virtual try-on technology
+- Future research: optimizing the pre-processing steps and exploring alternative models
