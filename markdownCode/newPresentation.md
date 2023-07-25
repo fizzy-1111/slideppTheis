@@ -43,22 +43,9 @@ style: |
 
 ---
 # Introduction
-- Traditional shopping requires going to physical stores
-- Time consuming, frustrating, limited selection
-- Online shopping is more convenient but has limitations
-- Hard to find right fit and style without trying on 
-
-**=> Need for virtual try-on to bridge gap between online and offline shopping**
 
 ---
-# Virtual Try-On
-- Digitally trying on garments or accessories in a virtual environment
-- Uses images of person and clothing item
-- Processes images to create realistic representation
-
-Key challenge: Variability in images (angles, body shapes, resolutions, backgrounds) can lead to inaccurate outputs
-
----
+# Motivation
 
 ![w:610 left](Traditional%20Shopping.png)
 
@@ -68,6 +55,14 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
   <div style="flex: 1; margin-left:150px"><b>Traditional Shopping</b></div>
   <div style="flex: 1; margin-left:300px"><b>Online Shopping</b></div>
 </div>
+
+---
+# Virtual Try-On
+- Digitally trying on garments or accessories in a virtual environment
+- Uses images of person and clothing item
+- Processes images to create realistic representation
+
+Key challenge: Variability in images (angles, body shapes, resolutions, backgrounds) can lead to inaccurate outputs
 
 ---
 
@@ -296,10 +291,18 @@ Our virtual try-on system consists of:
 
 ---
 
-![width:700 centernotop](pre-processing_agnostic.png)
+![width:700 centernotop](pre-processing.png)
 
 <div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Preprocessing module </b>
+</div>
+
+---
+
+![width:700 centernotop](pre-processing_agnostic.png)
+
+<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
+  <b>Clothing-agnostic Processing Flow </b>
 </div>
 
 ---
@@ -509,23 +512,31 @@ $$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \ma
 
 ---
 
-# Evaluation Metrics
+# Experiments
 
-**Structural Similarity Index (SSIM)** [2]
-
-$$SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$$
-
-**Mean Squared Error (MSE)** [3]
-
-$$MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$$
+- Goal: investigate and improve generator model performance by exploring different loss functions
+- Focus: Loss function of Try-On Image module includes GAN loss, L1 loss, and Feature Matching (FM) loss, each associated with a lambda parameter
+- GAN loss function can be selected between Cross-Entropy (CE) GAN loss, Least Square (LS) GAN loss, and Hinge GAN loss
 
 ---
 
-# Evaluation Metrics
+# Experiments
+Two experiments conducted:
+- Experiment 1:
+Investigate impact of L1 and FM losses on generator performance and find optimal set of lambda values for generator loss function
 
-**Learned Perceptual Image Patch Similarity (LPIPS)** [4] 
+- Experiment 2:
+Analyze specific impact of each GAN loss function in combination with L1 and FM on performance of generator model
 
-$$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
+---
+
+# Experiments
+Training parameters: resolution of 512x384, batch size of 8, total of 30,000 training steps
+
+Evaluation metrics:
+- SSIM: Structural Similarity Index
+- MSE: Mean Squared Error
+- LPIPS: Learned Perceptual Image Patch Similarity
 
 ---
 
@@ -558,6 +569,12 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
 |  | 20 | 0.91985 |0.00257| 0.02488 |
 |  | 30| 0.92091 |0.00257 |0.02335 |
 
+---
+
+# Experiment 1: L1 vs. FM Loss
+## Keys finding
+- L1 and FM losses improve generator performance 
+- FM more impactful than L1
 ---
 
 # Experiment 2: GAN Losses
@@ -595,12 +612,10 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
 
 ---
 
-# Experiment conclusion
-
-- L1 and FM losses improve generator performance 
-- FM more impactful than L1
-- CE GAN + L1 + FM achieves best performance
-- Insights help develop more effective virtual try-on systems
+# Experiment 2: GAN Losses
+## Keys finding
+- GAN loss combined with L1 and FM acan significantly impact the performance of a generator
+- Cross-Entropy (CE) GAN loss function is the most effective for this particular task
 
 ---
 # Application
@@ -613,22 +628,13 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
 
 ---   
 
-## Application Pipeline
+# Application Pipeline
 
-- App service: User interface
-- Clothmask service: Extract cloth mask 
-- Openpose, Densepose, Human Parse: Generate pose & segmentation
-- Generator service: Generate final image
+![width:900 centernotop](app-pipeline.png)
 
-
----
-## Execution Pipeline
-
-- **Phase 1**: User uploads images
-- **Phase 2**: Generate intermediate inputs 
-- **Phase 3**: 
-  - Run through generator pipeline
-  - Display outputs after each module
+<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
+  <b>Spade Residual Block</b>
+</div>
 
 ---
 ## Implementation Challenges
@@ -649,30 +655,16 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
   
 ---
 
-# Chapter 6: Conclusion
-
----
-
-# Summary
-
-- Aimed to develop virtual try-on application using HR-VITON model
-- Explored impact of different loss functions through experiments:
-  - Perceptual loss
-  - Adversarial loss
-  - Feature matching loss
-- Developed web application for virtual try-on experience
-
----
-
-# Key Findings
+# Conclusion
+## Key Findings
 
 - Incorporating L1 and FM losses improves generator performance
 - FM loss has more impact than L1 loss 
 - CE GAN + L1 + FM achieves best performance
 
 ---
-
-# Limitations
+# Conclusion
+## Limitations
 
 - HR-VITON model is complex and resource intensive
 - Extensive preprocessing is required
@@ -685,4 +677,4 @@ $$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|^2$$
 - Achieved promising results for virtual try-on application
 - Provided insights into effectiveness of loss functions
 - Web application makes research accessible
-- Advancement of virtual try-on technology
+- Future research: optimizing the pre-processing steps and exploring alternative models
