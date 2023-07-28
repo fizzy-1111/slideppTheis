@@ -37,12 +37,18 @@ style: |
       top: 0px;
       right: 0px;
     }
+     img[alt~="full"] {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      height: 100%
+    }
 
 ---
 # THESIS
 
 ---
-# Chapter 1: Introduction
+# Introduction
 ---
 # Motivation
 ![w:610 left](Traditional%20Shopping.png)
@@ -87,7 +93,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 - Demonstrate web application with user interface
 
 ---
-# Chapter 2: Related Works
+# Related Works
 ---
 
 # Several approaches to virtual try-on
@@ -100,7 +106,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - Virtual try-on with diffusion models
 
-<!-- ---
+---
 # Image-based Virtual Try-on
 
 - Involves modules for segmentation, warping, and fusion
@@ -111,16 +117,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - Fuses warped clothing with person image
 
----
-# Image-based Virtual Try-on
-
-**Notable models:**
-
-- VITON [2]: Pioneering virtual try-on method using coarse-to-fine strategy 
-
-- CP-VTON [3]: Focuses on preserving clothing characteristics during try-on
-
-- VTNFP [4]: Aims to preserve body and clothing features throughout process
+- Notable models: VITON, CP-VTON, VTNFPs
 
 ---
 # 3D Virtual Try-on 
@@ -133,16 +130,8 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - More complex algorithms and computations
 
----
-# 3D Virtual Try-on
+- Notable models:  DeepWrinkles, TailorNet, M3D-VTON
 
-**Notable models:** 
-
-- DeepWrinkles [5]: Simulates clothing wrinkles and folds from data 
-
-- TailorNet [6]: Predicts 3D clothing from human pose, shape and style
-
-- M3D-VTON [7]: Generates 3D try-on from a single image
 
 ---
 # Multi-Pose Guided Virtual Try-on
@@ -171,9 +160,9 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 - TryOnDiffusion [10]: Achieves high quality try-on images at 1024 x 1024 resolution
 
 - LaDI-VTON [11]: Combines diffusion models and textual inversion
- -->
 
 ---
+<!-- ---
 
 # Chapter 3: Foundation
 
@@ -250,10 +239,10 @@ Modified losses can improve training:
 
 Help address vanishing gradients, mode collapse, etc.
 
----
+--- -->
 
 
-# Chapter 4: Implementation
+# Implementation
 
 
 ---
@@ -298,7 +287,7 @@ Help address vanishing gradients, mode collapse, etc.
 
 ---
 
-# Try-On Condition Module
+<!-- # Try-On Condition Module
 
 Input:
 
@@ -309,13 +298,18 @@ Output:
 
 - Warped clothing image $\hat{I}_c$ 
 - Cloth mask segmentation $\hat{S}_c$
-- Segmentation map $\hat{S}$ 
+- Segmentation map $\hat{S}$  -->
+# Generator Architecture
+
+- Two encoders  
+- Four feature fusion blocks
+- Condition Aligning stage
 
 
 
 ---
 
-![h:720 farLeft](Generator.png)
+![h:600 w:900 centernotop](Generator.png)
 
 <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
 <b>Generator Architecture</b>
@@ -356,9 +350,15 @@ $$\hat{S}_{logit} = \begin{cases}
 $$\hat{S}= \sigma (\hat{S}_{logit})$$ 
 
 - Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
-
 ---
-![h:718 farRight](Discriminator.png)
+# Multi-Scale Discriminator
+
+- Each $D_i$ operates on downsampled $S_i$
+- Concatenates $\hat{Y}_i$ outputs into final $Y$
+- Captures multi-scale information
+- $k$ of $N$-layer sub-discriminators $D_i$
+---
+![h:600 w:900 centernotop](Discriminator.png)
 
 <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
   <b>Multi-Scale Discriminator</b>
@@ -370,9 +370,15 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 </div>
 
 ---
+# Sub-discriminator </b>
+
+- Input: Downsampled segmentation map $S_i$  
+- Output: Prediction map $\hat{Y}_i$
+- Consits of $N$ convolutional layers
+---
 
 
-![h:718 farRight](SubDiscriminator.png)
+![h:600 w:900 centernotop](SubDiscriminator.png)
 
 <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
   <b>Sub-discriminator </b>
@@ -381,6 +387,34 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 - Output: Prediction map $\hat{Y}_i$
 - Consits of $N$ convolutional layers
 </div>
+
+---
+# Training Try-On Condition modules
+Cross-entropy loss
+
+$\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$
+
+L1 loss
+
+$\mathcal{L}_{L1} =  \sum_{i=0}^3 w_i  .\left| \left|W(c_m,F_{f_i})-S_c \right| \right|_1 +||\hat{S_c}- S_c||_1 \tag{4.5}$
+
+VGG loss
+
+$\mathcal{L}_{VGG} = \sum_{i=0}^3 w_i  . \phi(W(c,F_{f_i}),I_c) + \phi(\hat{I_c},I_c) \tag{4.6}$
+
+---
+
+# Training Try-On Condition modules
+Loss TV
+
+$\mathcal{L}_{TV}= ||\nabla F_{f4}|| \tag{4.7}$
+
+Least square GAN loss
+
+$\mathcal{L}_{cGAN}=\underset{G}{min}V_{LS}(G)= \frac{1}{2}E_{z\sim p_{z}(z)} \left[\left(D\left(G(z)\right)-1\right)^2\right] \tag{4.9}$
+
+
+
 
 ---
 
@@ -396,7 +430,7 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 
 ---
 
-# Try-On Image Module 
+<!-- # Try-On Image Module 
 Input:
 - Clothing-agnostic image $I_a$, 
 - Warped clothing image $\hat{I}_c$, 
@@ -404,12 +438,18 @@ Input:
 
 Output
 
-- Final try-on image $\hat{I}$
+- Final try-on image $\hat{I}$ -->
+# Generator architecture</b>
+
+  - 2 $3\times3$ convolutions 
+  - SPADE residual blocks
+    - Leverage $\hat{S}$ to guide image generation
+    - Using SPADE normalization
 
 
 ---
 
-![h:718 farRight](ImageGenerator.png)
+![h:600 w:900 centernotop](ImageGenerator.png)
 
 <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px ">
   <b>Generator architecture</b>
@@ -429,6 +469,15 @@ Output
 <!-- <div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Spade Residual Block</b>
 </div> -->
+---
+# Training Try-On Image
+L1 loss
+
+$\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$
+
+Feature Matching loss
+
+$\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(G(z)) - Di(I_i)||_1 \tag{4.13} \label{eq:FM}$
 
 ---
 # Training Try-On Image
