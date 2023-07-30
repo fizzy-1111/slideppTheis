@@ -95,21 +95,23 @@ math: mathjax
 | <div style="text-align:center"><img src="Traditional%20Shopping.png" alt="Traditional Shopping" width="400"/> | <div style="text-align:center"><img src="Online%20Shopping.png" alt="Online Shopping" width="350"/> |
 
 ---
-# Virtual Try-On Application
-- Digitally trying on garments or accessories in a virtual environment
-- Approach: Image-based virtual try-on
-- Scope:
-  - Input: A human image and a cloth image 
-  - Output: Image of the human wearing the target cloth
-  - Human Image captured from a front view, with a clear background and minimal noise
+# Virtual Try-On
+- Task:
+  - Digitally try on garments or accessories in a virtual environment
+  - Allows users to see how clothing items would look on them
+
+- Our target: 
+  - Investigate and improve a related work
+  - Develop a web application system employing the work
 
 ---
 
-# Our Approach
-- Focus on HR-VITON model, a promising image-based virtual try-on approach
-- Goal: 
-  - Investigate and improve the performance of the model by exploring different loss functions
-  - Develop a web application system
+# Scope
+- Image-based virtual try-on
+- Human Image captured from a front view
+- Clear background and minimal noise
+
+![width:800 centernotop](app-introduce.png)
 
 ---
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
@@ -127,45 +129,38 @@ math: mathjax
 
 - Multi-pose guided virtual try-on
 
-- Virtual try-on with diffusion models
+<!-- - Virtual try-on with diffusion models -->
 
 ---
-# Image-based Virtual Try-on
+### Image-based Virtual Try-on
+<div style="text-align:center"><img src="vton-overview.png" style="width:50%;float:right;"></div>
 
-- Involves modules for segmentation, warping, and fusion
+- <span style="font-size:30px">VITON (2018): An Image-based Virtual Try-on Network [1]</span>
 
-- Generates map identifying body areas for clothing
+- <span style="font-size:30px">VITON-HD (2021): High-Resolution Virtual Try-On via Misalignment-Aware Normalization [2]</span>
 
-- Warps clothing image to match areas 
-
-- Fuses warped clothing with person image
-
-- Notable works: VITON, CP-VTON, VTNFPs
+- <span style="font-size:30px">HR-VTON (2022): High-Resolution Virtual Try-On with Misalignment and Occlusion-Handled Conditions [3]</span>
 
 ---
-# 3D Virtual Try-on 
+### 3D Virtual Try-on 
 
-- Employs 3D models of clothing and humans
+- <span style="font-size:30px">DeepWrinkles (2018): Accurate and Realistic Clothing Modeling [4]</span>
+- <span style="font-size:30px">TailorNet (2020): Predicting Clothing in 3D as a Function of Human Pose, Shape and Garment Style [5]</span>
+- <span style="font-size:30px">M3D-VTON (2021): A Monocular-to-3D Virtual Try-On Network [6]</span>
 
-- Can simulate cloth behavior and physics
-
-- Allows control over clothing fit and customization
-
-- More complex algorithms and computations
-
-- Notable works:  DeepWrinkles, TailorNet, M3D-VTON
-
+<div style="text-align:center"><img src="tailornet.png" style="width:48%;"></div>
 
 ---
-# Multi-Pose Guided Virtual Try-on
+### Multi-Pose Guided Virtual Try-on
 
-- Enables clothing transfer in diverse poses
+<div style="text-align:center"><img src="MG-VTON.png" style="width:70%;float:right;"></div>
 
-- Overcomes challenges like occlusions and misalignment
+- <span style="font-size:30px">MG-VTON (2019): Towards Multi-pose Guided Virtual Try-on Network [7]</span>
 
-- Notable works: MG-VTON, SPG-VTON
+- <span style="font-size:30px">SPG-VTON (2021): Semantic Prediction Guidance for Multi-pose Virtual Try-on [8]</span>
 
----
+
+<!-- ---
 # Virtual Try-on with Diffusion Models
 
 - Uses diffusion models like DDPM instead of GANs
@@ -174,87 +169,7 @@ math: mathjax
 
 - More stable training process
 
-- Notable works: TryOnDiffusion, LaDI-VTON
-
----
-<!-- ---
-
-# Chapter 3: Foundation
-
-
----
-
-## Generative Adversarial Networks (GANs)
-![h:250 centernotop](Network.png)
-
-<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
-  <b>Gan architecture</b>
-</div>
-
-- Generator network (G)
-- Discriminator network (D) 
-
----
-
-
-# Generator Network
-
-- Creates synthetic samples $x = G(z)$
-- Learns to map noise $z \sim p_z$ to real data distribution $p_{data}$
-- Output becomes increasingly realistic during training
-
----
-
-# Discriminator Network
-
-- Classifies real vs. generated samples 
-- Identifies features that characterize real data
-- Optimized to accurately classify real and fake samples
-
----
-# GAN Formulation
-
-Generator objective:
-$$\min_G \mathbb{E}_{z \sim p_z(z)} [ \log(1 - D(G(z)))]$$
-
-Discriminator objective: 
-$$\max_D \mathbb{E}_{x \sim p_{data}(x)}[\log D(x)] + \mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))]$$
-
-Adversarial minimax game between G and D.
-
----
-
-# Training GANs 
-
-- Generator aims to minimize loss by fooling discriminator
-- Discriminator aims to maximize loss by detecting fake samples
-- Loss gradients update network parameters
-
----
-
-# GAN Problems
-
-Common challenges:
-
-- Mode collapse 
-- Non-convergence  
-- Vanishing gradients
-
-Ongoing research to address these issues.
-
----
-
-# GAN Loss Variants 
-
-Modified losses can improve training:
-
-- Least squares loss
-- Hinge loss 
-- Feature matching loss
-
-Help address vanishing gradients, mode collapse, etc.
-
---- -->
+- Notable works: TryOnDiffusion, LaDI-VTON -->
 
 
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
@@ -278,11 +193,11 @@ Help address vanishing gradients, mode collapse, etc.
 
 # Preprocessing Module
 
-![width:700 centernotop](pre-processing.png)
+![width:800 centernotop](pre-processing.png)
 
 ---
 
-![width:700 centernotop](pre-processing_agnostic.png)
+![width:850 centernotop](pre-processing_agnostic.png)
 
 <div style="color: black; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Clothing-agnostic Processing Flow </b>
@@ -292,25 +207,7 @@ Help address vanishing gradients, mode collapse, etc.
 
 ### Try-On Condition Module
 
-<!-- Input:
-
-- Clothing image $c$, Cloth mask $c_m$
-- Denpose $P$
-
-Output:
-
-- Warped clothing image $\hat{I}_c$ 
-- Cloth mask segmentation $\hat{S}_c$
-- Segmentation map $\hat{S}$
-
---- -->
-<!-- # Generator Architecture -->
-
-<!-- - Two encoders  
-- Four feature fusion blocks
-- Condition Aligning stage -->
-<!-- 
-![h:550 w:900 centernotop](Generator.png) -->
+![width:900 centernotop](tryon-condition.png)
 
 
 ---
@@ -409,6 +306,13 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 
 ---
 
+
+### Try-On Image Module
+![width:750 centernotop](tryon-image.png)
+
+---
+
+
 ### Try-on Image Generator architecture
 
 ![width:1200 centernotop](ImageGenerator.png)
@@ -459,7 +363,7 @@ $\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mat
 
 # Dataset
 
-- High-resolution virtual try-on dataset from VITON-HD
+- High-resolution virtual try-on dataset from VITON-HD [2]
 - 13,679 frontal-view woman and top clothing image pairs
 - 1024 x 768 resolution
 - 11,647 pairs for training, 2,032 for testing
@@ -488,7 +392,7 @@ $\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mat
 # Experiments
 
 - Goal: Investigate and improve generator model performance by exploring different loss functions
-- Focus: Loss function of Try-On Image module includes GAN loss, L1 loss, and Feature Matching (FM) loss.
+- Focus: Loss function of Try-On Image module includes **GAN loss**, **L1 loss**, and **Feature Matching (FM) loss**.
 - GAN loss function:
   - Cross-Entropy (CE) GAN loss
   - Least Square (LS) GAN loss
@@ -508,19 +412,41 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 
 ## Experiment 1: L1 vs. FM Loss
 
+<!-- <div style="text-align:center"><img src="Exp1-table.png" width="650" style="float:right;"></div> -->
+Test cases:
+- No L1 and no FM losses
+- Fix the FM lambda at 10 and vary L1 lambda between 10 and 40
+- Fix the L1 lambda at 10 and vary FM lambda between 10 and 40
+
+Models trained using original paper parameters:
+- $512\times384$ resolution
+- 8 batch size
+- Training steps: 30,000
+
+---
+
+## Experiment 1: L1 vs. FM Loss
+
 ![width:650 centernotop](Exp1-table.png)
 
 ---
 ## Experiment 1: L1 vs. FM Loss
 
-![width:600 centernotop](Exp1-chart.png)
+![width:1200 centernotop](Exp1-chart.png)
+- L1 and FM losses improve generator performance
+- FM more impactful than L1
 
 ---
 
-## Experiment 1: L1 vs. FM Loss
-### Keys finding
-- L1 and FM losses improve generator performance 
-- FM more impactful than L1
+## Experiment 2: GAN Losses
+
+- Use parameters and optimal lambda values found Experiment 1
+- Try different GAN loss functions: **CE GAN loss**, **LS GAN loss** and **Hinge GAN loss**
+- As for each GAN loss function:
+  - No L1 and no FM
+  - Include L1 without FM
+  - Include FM without L1
+  - Include both L1 and FM
 ---
 
 ## Experiment 2: GAN Losses
@@ -531,54 +457,58 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 
 ## Experiment 2: GAN Losses
 
-![width:700 centernotop](Exp2-chart.png)
-
----
-
-## Experiment 2: GAN Losses
-### Keys finding
+![width:1200 centernotop](Exp2-chart.png)
 - GAN loss combined with L1 and FM acan significantly impact the performance of a generator
-- Cross-Entropy (CE) GAN loss function is the most effective for this particular task
-
----
-## Application Overview
-
-
-- Input: A human image and a cloth image
-- Output: Generated image of the human wearing the cloth
-- Architecture: Microservice 
-- Programming language: Python
-- Communication between services: gRPC
-- User Interface: Streamlit
-- Deploy: Docker
+- Cross-Entropy (CE) GAN loss function is the most effective
 
 --- 
 
 ## Application
 
-![width:1000 centernotop](application.png)
+![width:1100 centernotop](application.png)
+
+---
+
+## Application
+
+![width:1070 centernotop](app-result.png)
+
+---
+
+## Application Overview
+
+- Architecture: Microservice 
+
+- Programming language: Python
+
+- Communication between services: gRPC
+
+- User interface: Streamlit
+
+- Deploy: Docker
 
 ---
 
 ## Application Pipeline
 
-![width:900 centernotop](app-pipeline.png)
+![width:950 centernotop](app-pipeline.png)
 
 ---
+
 <!-- ## Discussion
 
 
 
 --- -->
 
-## Limitations
+<!-- ## Limitations
 
 - HR-VITON model requires resource intensive for training.
 - Complex pre-processing.
 - Application works but slow runtime, particularly segmentation map of the human.
 - Pre-processing must match dataset
   
----
+--- -->
 
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
   
@@ -593,3 +523,40 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 - Provided insights into effectiveness of loss functions when training HR-VITON model
 - Web application makes research accessible
 - Future research: Optimizing the pre-processing steps and exploring alternative models
+
+---
+# References
+
+<span style="font-size:30px">
+[1]: X. Han, Z. Wu, Z. Wu, R. Yu, and L. S. Davis, “Viton: An image-based virtual try-on network,” in Proceedings of the IEEE conference on computer vision and pattern recognition, 2018, pp. 7543–7552.
+
+[2]: S. Choi, S. Park, M. Lee, and J. Choo, “Viton-hd: High-resolution virtual try-
+on via misalignment-aware normalization,” in Proc. of the IEEE conference on
+computer vision and pattern recognition (CVPR), 2021.
+
+[3]: S. Lee, G. Gu, S. Park, S. Choi, and J. Choo, “High-resolution virtual try-on with misalignment and occlusion-handled conditions,” 2022.
+</span>
+
+--- 
+
+# References
+
+<span style="font-size:30px">
+[4]: Z. Lahner, D. Cremers, and T. Tung, “Deepwrinkles: Accurate and realistic clothing modeling,” in Proceedings of the European conference on computer
+vision (ECCV), 2018, pp. 667–684.
+
+[5]: C. Patel, Z. Liao, and G. Pons-Moll, “Tailornet: Predicting clothing in 3d as a function of human pose, shape and garment style,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, 2020, pp. 7365–7375.
+
+[6]: F. Zhao, Z. Xie, M. Kampffmeyer, H. Dong, S. Han, T. Zheng, T. Zhang, and X. Liang, “M3d-vton: A monocular-to-3d virtual try-on network,” in Proceedings of the IEEE/CVF International Conference on Computer Vision, 2021, pp. 13 239–13 249.
+</span>
+
+---
+
+
+# References
+
+<span style="font-size:30px">
+[7]: H. Dong, X. Liang, X. Shen, B. Wang, H. Lai, J. Zhu, Z. Hu, and J. Yin, “Towards multi-pose guided virtual try-on network,” in Proceedings of the IEEE/CVF international conference on computer vision, 2019, pp. 9026–9035.
+
+[8]: B. Hu, P. Liu, Z. Zheng, and M. Ren, “Spg-vton: Semantic prediction guidance for multi-pose virtual try-on,” IEEE Transactions on Multimedia, vol. 24, pp. 1233–1246, 2022.
+</span>
