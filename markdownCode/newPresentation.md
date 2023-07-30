@@ -2,7 +2,7 @@
 marp: true
 html: true
 theme: gaia
-class: invert
+class: 
 style: |
     img[alt~="left"] {
       position: absolute;
@@ -29,17 +29,24 @@ style: |
     }
     img[alt~="farLeft"]{
       position: absolute;
-      top: 0px;
+      top: 130px;
       left: 0px;
     }
     img[alt~="farRight"]{
       position: absolute;
-      top: 0px;
+      top: 130px;
       right: 0px;
     }
-     img[alt~="full"] {
+    img[alt~="full"] {
       position: absolute;
       top: 0px;
+      right: 0px;
+      width: 100%;
+      height: 100%
+    }
+    img[alt~="fullpadtop"] {
+      position: absolute;
+      top: 100px;
       right: 0px;
       width: 100%;
       height: 100%
@@ -257,13 +264,13 @@ Help address vanishing gradients, mode collapse, etc.
 
 
 ---
-## System Overview
-
-![width:800 centernotop](framework.png)
-
-<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
-  <b>Preprocessing module</b>
+<div style="display:flex;justify-content:left;align-items:center;height:5px">
+  
+### <span style="font-size:60px;">System Overview</span>
 </div>
+
+![w:1100 centernotop](framework.png)
+
 
 
 
@@ -277,7 +284,7 @@ Help address vanishing gradients, mode collapse, etc.
 
 ![width:700 centernotop](pre-processing_agnostic.png)
 
-<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
+<div style="color: black; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Clothing-agnostic Processing Flow </b>
 </div>
 
@@ -302,20 +309,21 @@ Output:
 <!-- - Two encoders  
 - Four feature fusion blocks
 - Condition Aligning stage -->
-
-![h:550 w:900 centernotop](Generator.png)
+<!-- 
+![h:550 w:900 centernotop](Generator.png) -->
 
 
 ---
 
-![full](Generator.png)
+## Generator architecture
+![centernotop](Generator.png)
 
-<div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
+<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
 <b>Generator Architecture</b>
 
 - Two encoders  
 - Four feature fusion blocks
-- Condition Aligning stage -->
+- Condition Aligning stage --> -->
 
 <!-- </div> -->
 
@@ -328,7 +336,7 @@ Output:
 - The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
 
-![w:620 centernotop](Feature%20Fusion%20Block.png)
+![w:700 centernotop](Feature_Fusion_Block.png)
 
 
 ---
@@ -346,45 +354,23 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 
 - Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
 ---
-##### Multi-Scale Discriminator
+<div style="margin-left:120px">
+<div style="display:flex;justify-content:left;align-items:center;height:5px; width:">
+  
+### <span style="font-size:32px;">Multiscale Discriminator</span>
+<div style="display:flex;margin-left:200px; align-items:center;height:5px">
+  
+### <span style="font-size:32px;margin-:80px">N-Layer Subdiscriminator</span>
+</div>
+</div>
 
-<!-- - Each $D_i$ operates on downsampled $S_i$
-- Concatenates $\hat{Y}_i$ outputs into final $Y$
-- Captures multi-scale information
-- $k$ of $N$-layer sub-discriminators $D_i$
---- -->
-![h:550 w:900 centernotop](Discriminator.png)
 
-<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
-  <b>Multi-Scale Discriminator</b>
+![h:570 farLeft](Discriminator.png)
+![h:570 farRight](SubDiscriminator.png)
 
-- Each $D_i$ operates on downsampled $S_i$
-- Concatenates $\hat{Y}_i$ outputs into final $Y$
-- Captures multi-scale information
-- $k$ of $N$-layer sub-discriminators $D_i$
-</div> -->
 
 ---
-##### Sub-discriminator
-
-<!-- - Input: Downsampled segmentation map $S_i$  
-- Output: Prediction map $\hat{Y}_i$
-- Consits of $N$ convolutional layers
---- -->
-
-
-![h:550 w:900 centernotop](SubDiscriminator.png)
-
-<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
-  <b>Sub-discriminator </b>
-
-- Input: Downsampled segmentation map $S_i$  
-- Output: Prediction map $\hat{Y}_i$
-- Consits of $N$ convolutional layers
-</div> -->
-
----
-# Training Try-On Condition module
+### Training Try-On Condition module
 - Cross-entropy loss
 
 $\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$
@@ -399,7 +385,7 @@ $\mathcal{L}_{VGG} = \sum_{i=0}^3 w_i  . \phi(W(c,F_{f_i}),I_c) + \phi(\hat{I_c}
 
 ---
 
-# Training Try-On Condition module
+### Training Try-On Condition module
 - Loss TV
 
 $\mathcal{L}_{TV}= ||\nabla F_{f4}|| \tag{4.7}$
@@ -423,48 +409,18 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 
 ---
 
-<!-- # Try-On Image Module 
-Input:
-- Clothing-agnostic image $I_a$, 
-- Warped clothing image $\hat{I}_c$, 
-- Denpose $P$, Segmentation map $\hat{S}$ 
+### Try-on Image Generator architecture
 
-Output
+![width:1200 centernotop](ImageGenerator.png)
 
-- Final try-on image $\hat{I}$ -->
-### Try-On Image Module
-<!-- Generator architecture -->
-
-  <!-- - 2 $3\times3$ convolutions 
-  - SPADE residual blocks
-    - Leverage $\hat{S}$ to guide image generation
-    - Using SPADE normalization
-
-
---- -->
-
-![h:550 w:900 centernotop](ImageGenerator.png)
-
-<div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px ">
-  <b>Generator architecture</b>
-
-  - 2 $3\times3$ convolutions 
-  - SPADE residual blocks
-    - Leverage $\hat{S}$ to guide image generation
-    - Using SPADE normalization
-
-</div>
 
 ---
-## SPADE Residual Block
+### SPADE Residual Block
 
-![width:900 centernotop](ResBlock.png)
+![width:1000 centernotop](ResBlock.png)
 
-<!-- <div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
-  <b>Spade Residual Block</b>
-</div> -->
 ---
-# Training Try-On Image
+### Training Try-On Image
 L1 loss
 
 $\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$
@@ -474,7 +430,7 @@ Feature Matching loss
 $\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(G(z)) - Di(I_i)||_1 \tag{4.13} \label{eq:FM}$
 
 ---
-# Training Try-On Image
+### Training Try-On Image
 Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 - Hinge Loss
 - Least square loss
@@ -482,7 +438,7 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 
 ---
 
-# Training Try-On Image
+### Training Try-On Image
 
 Generator loss: 
 
@@ -490,7 +446,7 @@ $$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{
 
 Discriminator loss:
 
-$$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$$
+$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$$
 
 ---
 
