@@ -44,63 +44,78 @@ style: |
       height: 100%
     }
 
+math: mathjax
 ---
-# THESIS
+<div style="text-align:center">
 
----
-# Introduction
----
-# Motivation
-![w:610 left](Traditional%20Shopping.png)
+# <span style="font-size:40px">THESIS</span>
 
-![w:500 right](Online%20Shopping.png)
+### <span style="font-size:50px">DEVELOPING A VIRTUAL TRY-ON CLOTHES APPLICATION</span>
 
-<div style="color: white; font-size: 30px; margin-top: 400px; display: flex;">
-  <div style="flex: 1; margin-left:150px"><b>Traditional Shopping</b></div>
-  <div style="flex: 1; margin-left:300px"><b>Online Shopping</b></div>
+<span style="font-size:25px">NGUYỄN HOÀNG LINH 19125103 - NGUYỄN PHẠM TÙNG LÂM 19125056</span>
+
+#### <span style="font-size:40px">THESIS ADVISORS</span>
+
+<span style="font-size:30px">Mr. PHẠM MINH HOÀNG - Dr. VÕ HOÀI VIỆT</span>
+
 </div>
 
 ---
-# Virtual Try-On
-- Digitally trying on garments or accessories in a virtual environment
-- Uses images of person and clothing item
-- Processes images to create realistic representation
-
-Key challenge: Variability in images (angles, body shapes, resolutions, backgrounds) can lead to inaccurate outputs
-
+# Outline
+- Introduction
+- Related works 
+- Implementation 
+- Experiments
+- Conclusion
+- Demo: Web application
 
 ---
-# Virtual Try-On
-- Digitally trying on garments or accessories in a virtual environment
-- Uses images of person and clothing item
-- Processes images to create realistic representation
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Introduction</span>
+</div>
 
-Key challenge: Variability in images (angles, body shapes, resolutions, backgrounds) can lead to inaccurate outputs
+---
+# Motivation
+
+|                 |                     |
+|-----------------|---------------------|
+| **Traditional Shopping** | **Online Shopping**     |
+| Require visit stores physically | Convenience         |
+| Limited inventory | Wider range of products
+| Able to try-on clothes | Unable to try on clothes |
+| <div style="text-align:center"><img src="Traditional%20Shopping.png" alt="Traditional Shopping" width="400"/> | <div style="text-align:center"><img src="Online%20Shopping.png" alt="Online Shopping" width="350"/> |
+
+---
+# Virtual Try-On Application
+- Digitally trying on garments or accessories in a virtual environment
+- Approach: Image-based virtual try-on
+- Scope:
+  - Input: A human image and a cloth image 
+  - Output: Image of the human wearing the target cloth
+  - Human Image captured from a front view, with a clear background and minimal noise
 
 ---
 
 # Our Approach
-- Focus on HR-VITON model for image-based virtual try-on
-- Conduct experiments exploring impact of loss functions:
-- Develop web application for users experience
+- Focus on HR-VITON model, a promising image-based virtual try-on approach
+- Goal: 
+  - Investigate and improve the performance of the model by exploring different loss functions
+  - Develop a web application system
 
 ---
-# Outline
-- Review related works 
-- Provide foundation on GANs 
-- Describe implementation and training of 
-- Present experiments of different loss functions
-- Demonstrate web application with user interface
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Related Works</span>
+</div>
 
 ---
-# Related Works
----
 
-# Several approaches to virtual try-on
+# Several approaches to Virtual Try-on
 
 - Image-based (2D) virtual try-on
 
-- 3D virtual try-on: 
+- 3D virtual try-on
 
 - Multi-pose guided virtual try-on
 
@@ -117,7 +132,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - Fuses warped clothing with person image
 
-- Notable models: VITON, CP-VTON, VTNFPs
+- Notable works: VITON, CP-VTON, VTNFPs
 
 ---
 # 3D Virtual Try-on 
@@ -130,7 +145,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - More complex algorithms and computations
 
-- Notable models:  DeepWrinkles, TailorNet, M3D-VTON
+- Notable works:  DeepWrinkles, TailorNet, M3D-VTON
 
 
 ---
@@ -140,11 +155,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - Overcomes challenges like occlusions and misalignment
 
-**Notable models:**
-
-- MG-VTON [8]: Synthesizes human parsing map, warps clothes, and refines render
-
-- SPG-VTON [9]: Uses semantic prediction to guide multi-pose try-on
+- Notable works: MG-VTON, SPG-VTON
 
 ---
 # Virtual Try-on with Diffusion Models
@@ -155,11 +166,7 @@ Key challenge: Variability in images (angles, body shapes, resolutions, backgrou
 
 - More stable training process
 
-**Notable models:**
-
-- TryOnDiffusion [10]: Achieves high quality try-on images at 1024 x 1024 resolution
-
-- LaDI-VTON [11]: Combines diffusion models and textual inversion
+- Notable works: TryOnDiffusion, LaDI-VTON
 
 ---
 <!-- ---
@@ -242,7 +249,10 @@ Help address vanishing gradients, mode collapse, etc.
 --- -->
 
 
-# Implementation
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Implementation</span>
+</div>
 
 
 ---
@@ -260,22 +270,7 @@ Help address vanishing gradients, mode collapse, etc.
 
 # Preprocessing Module
 
-- Takes human image $I$ and clothing image $c$
-- Generates:
-  - Clothing mask $c_m$
-  - Densepose $P$
-  - Clothing-agnostic segmentation $S_a$
-  - Clothing-agnostic image $I_a$
-
-- $P$, $c_m$, $S_a$, $I_a$ are fed to subsequent modules.
-
----
-
 ![width:700 centernotop](pre-processing.png)
-
-<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
-  <b>Preprocessing module </b>
-</div>
 
 ---
 
@@ -287,9 +282,9 @@ Help address vanishing gradients, mode collapse, etc.
 
 ---
 
-<!-- # Try-On Condition Module
+### Try-On Condition Module
 
-Input:
+<!-- Input:
 
 - Clothing image $c$, Cloth mask $c_m$
 - Denpose $P$
@@ -298,40 +293,34 @@ Output:
 
 - Warped clothing image $\hat{I}_c$ 
 - Cloth mask segmentation $\hat{S}_c$
-- Segmentation map $\hat{S}$  -->
-# Generator Architecture
+- Segmentation map $\hat{S}$
 
-- Two encoders  
+--- -->
+<!-- # Generator Architecture -->
+
+<!-- - Two encoders  
 - Four feature fusion blocks
-- Condition Aligning stage
+- Condition Aligning stage -->
 
+![h:550 w:900 centernotop](Generator.png)
 
-
----
-
-![h:600 w:900 centernotop](Generator.png)
-
-<div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
+<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
 <b>Generator Architecture</b>
 
 - Two encoders  
 - Four feature fusion blocks
-- Condition Aligning stage
+- Condition Aligning stage -->
 
-</div>
+<!-- </div> -->
 
 ---
 
 ### Feature Fusion Blocks
 
-- Has two routes: the flow pathway and the seg pathway.
-
+<!-- - Has two routes: the flow pathway and the seg pathway.
 - Takes two inputs, $F_{f_{i-1}}$ and $F_{s_{i-1}}$.
+- The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
-- The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously.
-
----
-### Feature Fusion Blocks
 
 ![w:620 centernotop](Feature%20Fusion%20Block.png)
 
@@ -351,69 +340,67 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 
 - Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
 ---
-# Multi-Scale Discriminator
+##### Multi-Scale Discriminator
 
-- Each $D_i$ operates on downsampled $S_i$
+<!-- - Each $D_i$ operates on downsampled $S_i$
 - Concatenates $\hat{Y}_i$ outputs into final $Y$
 - Captures multi-scale information
 - $k$ of $N$-layer sub-discriminators $D_i$
----
-![h:600 w:900 centernotop](Discriminator.png)
+--- -->
+![h:550 w:900 centernotop](Discriminator.png)
 
-<div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
+<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
   <b>Multi-Scale Discriminator</b>
 
 - Each $D_i$ operates on downsampled $S_i$
 - Concatenates $\hat{Y}_i$ outputs into final $Y$
 - Captures multi-scale information
 - $k$ of $N$-layer sub-discriminators $D_i$
-</div>
+</div> -->
 
 ---
-# Sub-discriminator </b>
+##### Sub-discriminator
 
-- Input: Downsampled segmentation map $S_i$  
+<!-- - Input: Downsampled segmentation map $S_i$  
 - Output: Prediction map $\hat{Y}_i$
 - Consits of $N$ convolutional layers
----
+--- -->
 
 
-![h:600 w:900 centernotop](SubDiscriminator.png)
+![h:550 w:900 centernotop](SubDiscriminator.png)
 
-<div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
+<!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px">
   <b>Sub-discriminator </b>
 
 - Input: Downsampled segmentation map $S_i$  
 - Output: Prediction map $\hat{Y}_i$
 - Consits of $N$ convolutional layers
-</div>
+</div> -->
 
 ---
-# Training Try-On Condition modules
-Cross-entropy loss
+# Training Try-On Condition module
+- Cross-entropy loss
 
 $\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$
 
-L1 loss
+- L1 loss
 
 $\mathcal{L}_{L1} =  \sum_{i=0}^3 w_i  .\left| \left|W(c_m,F_{f_i})-S_c \right| \right|_1 +||\hat{S_c}- S_c||_1 \tag{4.5}$
 
-VGG loss
+- VGG loss
 
 $\mathcal{L}_{VGG} = \sum_{i=0}^3 w_i  . \phi(W(c,F_{f_i}),I_c) + \phi(\hat{I_c},I_c) \tag{4.6}$
 
 ---
 
-# Training Try-On Condition modules
-Loss TV
+# Training Try-On Condition module
+- Loss TV
 
 $\mathcal{L}_{TV}= ||\nabla F_{f4}|| \tag{4.7}$
 
-Least square GAN loss
+- Least square GAN loss
 
 $\mathcal{L}_{cGAN}=\underset{G}{min}V_{LS}(G)= \frac{1}{2}E_{z\sim p_{z}(z)} \left[\left(D\left(G(z)\right)-1\right)^2\right] \tag{4.9}$
-
-
 
 
 ---
@@ -439,17 +426,18 @@ Input:
 Output
 
 - Final try-on image $\hat{I}$ -->
-# Generator architecture</b>
+### Try-On Image Module
+<!-- Generator architecture -->
 
-  - 2 $3\times3$ convolutions 
+  <!-- - 2 $3\times3$ convolutions 
   - SPADE residual blocks
     - Leverage $\hat{S}$ to guide image generation
     - Using SPADE normalization
 
 
----
+--- -->
 
-![h:600 w:900 centernotop](ImageGenerator.png)
+![h:550 w:900 centernotop](ImageGenerator.png)
 
 <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:0px ">
   <b>Generator architecture</b>
@@ -500,25 +488,49 @@ $$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \ma
 
 ---
 
-# Chapter 5: Experiments
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Experiments</span>
+</div>
 
 ---
 
 # Dataset
 
-- High-resolution virtual try-on dataset from VITON-HD [1] 
+- High-resolution virtual try-on dataset from VITON-HD
 - 13,679 frontal-view woman and top clothing image pairs
 - 1024 x 768 resolution
 - 11,647 pairs for training, 2,032 for testing
 
+<div style="display:flex;justify-content:center">
+
+<img src="human_01.jpg" alt="Image 1" width="200"/>
+<img src="cloth_01.jpg" alt="Image 2" width="200"/>
+<img src="human_02.jpg" alt="Image 3" width="200"/>
+<img src="cloth_02.jpg" alt="Image 4" width="200"/>
+
+</div>
+
 ---
  # Evaluation Metrics
+ - SSIM
+ $SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$
 
+ - MSE
+ $MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$
+
+ - LPIPS
+ $LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|_2$
+
+---
 # Experiments
 
-- Goal: investigate and improve generator model performance by exploring different loss functions
-- Focus: Loss function of Try-On Image module includes GAN loss, L1 loss, and Feature Matching (FM) loss, each associated with a lambda parameter
-- GAN loss function can be selected between Cross-Entropy (CE) GAN loss, Least Square (LS) GAN loss, and Hinge GAN loss
+- Goal: Investigate and improve generator model performance by exploring different loss functions
+- Focus: Loss function of Try-On Image module includes GAN loss, L1 loss, and Feature Matching (FM) loss.
+- GAN loss function:
+  - Cross-Entropy (CE) GAN loss
+  - Least Square (LS) GAN loss
+  - Hinge GAN loss
 
 ---
 
@@ -532,90 +544,37 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 
 ---
 
-# Experiments
-Training parameters: resolution of 512x384, batch size of 8, total of 30,000 training steps
+## Experiment 1: L1 vs. FM Loss
 
-Evaluation metrics:
-- SSIM: Structural Similarity Index
-- MSE: Mean Squared Error
-- LPIPS: Learned Perceptual Image Patch Similarity
+![width:650 centernotop](Exp1-table.png)
+
+---
+## Experiment 1: L1 vs. FM Loss
+
+![width:600 centernotop](Exp1-chart.png)
 
 ---
 
-# Experiment 1: L1 vs. FM Loss
-
-**No L1 and FM losses**
-| L1 Lambda | FM Lambda | SSIM ↑ | MSE ↓ | LPIPS ↓ |
-|---|---|---|---|---|
-| 0 | 0 | 0.89926 | 0.00504 | 0.03876 |
-
----
-
-# Experiment 1: L1 vs. FM Loss
-
-**Fix FM and Change L1 Lambda**
-| L1 Lambda | FM Lambda | SSIM ↑ | MSE ↓ | LPIPS ↓ |
-|---|---|---|---|---|
- 0 | 10 | 0.91743 | 0.00294 | 0.02229 |
-| 10 |  | 0.91493 | 0.00282 | 0.02430 |
-| 20 |  | 0.91391 | 0.00281 | 0.02498 |
-| 30 | | 0.91579 | 0.00262 | 0.02398 |
-
----
-# Experiment 1: L1 vs. FM Loss
-**Fix L1 and Change FM Lambda**
-| L1 Lambda | FM Lambda | SSIM ↑ | MSE ↓ | LPIPS ↓ |
-|---|---|---|---|---|
-| 10 | 0 | 0.90886| 0.00329 |0.02884 | 
-|  | 10 | 0.91493| 0.00282| 0.02430 |
-|  | 20 | 0.91985 |0.00257| 0.02488 |
-|  | 30| 0.92091 |0.00257 |0.02335 |
-
----
-
-# Experiment 1: L1 vs. FM Loss
-## Keys finding
+## Experiment 1: L1 vs. FM Loss
+### Keys finding
 - L1 and FM losses improve generator performance 
 - FM more impactful than L1
 ---
 
-# Experiment 2: GAN Losses
+## Experiment 2: GAN Losses
 
-**Hinge GAN**
-
-| Losses | SSIM ↑ | MSE ↓ | LPIPS ↓ |  
-|-|-|-|-|
-| No L1, No FM | 0.89926 | 0.00504 | 0.03876 |
-| L1 Only | 0.90886 | 0.00329 | 0.02884 |
-| FM Only | 0.91949 | 0.00266 | 0.02264 | 
-| L1 + FM | 0.91932 | 0.00254 | 0.02341 |
-
----
-# Experiment 2: GAN Losses
-**LS GAN**
-
-| Losses | SSIM ↑ | MSE ↓ | LPIPS ↓ |
-|-|-|-|-|  
-| No L1, No FM | 0.89823 | 0.00522 | 0.04360 |
-| L1 Only | 0.91185 | 0.00295 | 0.03442 |
-| FM Only | 0.92377 | 0.00239 | 0.02430 |
-| L1 + FM | 0.92363 | 0.00229 | 0.02560 |
-
---- 
-# Experiment 2: GAN Losses
-**CE GAN**
-
-| Losses | SSIM ↑ | MSE ↓ | LPIPS ↓ |
-|-|-|-|-|
-| No L1, No FM | 0.89868 | 0.00512 | 0.04064 |  
-| L1 Only | 0.91070 | 0.00312 | 0.03512 |
-| FM Only | 0.92250 | 0.00263 | 0.02403 |
-| L1 + FM | 0.92567 | 0.00225 | 0.02258 |
+![width:500 centernotop](Exp2-table.png)
 
 ---
 
-# Experiment 2: GAN Losses
-## Keys finding
+## Experiment 2: GAN Losses
+
+![width:700 centernotop](Exp2-chart.png)
+
+---
+
+## Experiment 2: GAN Losses
+### Keys finding
 - GAN loss combined with L1 and FM acan significantly impact the performance of a generator
 - Cross-Entropy (CE) GAN loss function is the most effective for this particular task
 
@@ -623,73 +582,52 @@ Evaluation metrics:
 ## Application Overview
 
 
-- Allow users to upload human and clothing images
-- Generate output images showing human wearing clothing
-- Implemented using microservice architecture
+- Input: A human image and a cloth image
+- Output: Generated image of the human wearing the cloth
+- Architecture: Microservice 
+- Programming language: Python
+- Communication between services: gRPC
+- User Interface: Streamlit
+- Deploy: Docker
 
----   
+--- 
 
-# Application Pipeline
+## Application
+
+![width:1000 centernotop](application.png)
+
+---
+
+## Application Pipeline
 
 ![width:900 centernotop](app-pipeline.png)
 
-<div style="color: white; font-size: 30px; margin-top: 30px; text-align: center; ">
-  <b>Spade Residual Block</b>
-</div>
-
 ---
-## Implementation Challenges
+<!-- ## Discussion
 
-- Lack of GPU compute power
-- Complex pre-processing for HR-VITON
-- Mismatch between pre-processing and dataset
-- 4-5 minutes end-to-end runtime 
 
----
 
-## Key Takeaways
+--- -->
 
-- Application works but slow runtime
-- Sufficient compute resources needed
+## Limitations
+
+- HR-VITON model requires resource intensive for training.
+- Complex pre-processing.
+- Application works but slow runtime, particularly segmentation map of the human.
 - Pre-processing must match dataset
-- Model complexity challenges deployment
   
 ---
 
-# Chapter 6: Conclusion
-
-<!-- ---
-
-# Summary
-
-- Aimed to develop virtual try-on application using HR-VITON model
-- Explored impact of different loss functions through experiments:
-  - Perceptual loss
-  - Adversarial loss
-  - Feature matching loss
-- Developed web application for virtual try-on experience
-
----
-
-# Key Findings
-
-- Incorporating L1 and FM losses improves generator performance
-- FM loss has more impact than L1 loss 
-- CE GAN + L1 + FM achieves best performance
-
----
-# Conclusion
-## Limitations
-
-- HR-VITON model is complex and resource intensive
-- Extensive preprocessing is required
-- More experiments needed for comprehensive analysis -->
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Conclusion</span>
+</div>
 
 ---
 
 # Conclusion
 
 - Achieved promising results for virtual try-on application
-- Provided insights into effectiveness of loss functions
+- Provided insights into effectiveness of loss functions when training HR-VITON model
 - Web application makes research accessible
-- Future research: optimizing the pre-processing steps and exploring alternative models
+- Future research: Optimizing the pre-processing steps and exploring alternative models
