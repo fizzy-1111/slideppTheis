@@ -441,7 +441,7 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 ## Experiment 1: L1 vs. FM Loss
 
 <!-- <div style="text-align:center"><img src="Exp1-table.png" width="650" style="float:right;"></div> -->
-Test cases:
+Try different lambda values for the L1 and FM losses.:
 - No L1 and no FM losses
 - Fix the FM lambda at 10 and vary L1 lambda between 10 and 40
 - Fix the L1 lambda at 10 and vary FM lambda between 10 and 40
@@ -461,8 +461,8 @@ Models trained using original paper parameters:
 ## Experiment 1: L1 vs. FM Loss
 
 ![width:1200 centernotop](Exp1-chart.png)
-- L1 and FM losses improve generator performance
-- FM more impactful than L1
+- L1 and FM losses improve performance, and FM is more impactful.
+- Lambda values optimal for L1 and FM losses are 30 and 10.
 
 ---
 
