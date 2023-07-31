@@ -368,6 +368,19 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 ![h:570 farLeft](Discriminator.png)
 ![h:570 farRight](SubDiscriminator.png)
 
+---
+
+### Training Try-On Condition module
+
+The loss function will entail a type of loss characteristic of GANs.
+
+$
+\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{S\sim p_{data}(S)} log\left(D(S)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{S}\right)\right)\right) \tag{4.3}
+$
+
+To improve the quality of the generator loss, we integrate :
+- cross-entropy loss, L1 loss, 
+- perceptual loss, and total-variation loss.
 
 ---
 ### Training Try-On Condition module
@@ -420,8 +433,23 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 ![width:1000 centernotop](ResBlock.png)
 
 ---
+
 ### Training Try-On Image
-L1 loss
+
+The loss function also involve a type of loss that is typical of GANs. 
+
+$
+\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right) \tag{4.11}
+$
+
+To enhance the quality of the generator loss, we incorporate: 
+  - Adversarial loss, perceptual loss, 
+  - feature matching loss, and $L1$ loss
+
+
+---
+### Training Try-On Image
+$L1$ loss
 
 $\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$
 
@@ -442,11 +470,11 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 
 Generator loss: 
 
-$$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$$
+$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$
 
 Discriminator loss:
 
-$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$$
+$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$
 
 ---
 
