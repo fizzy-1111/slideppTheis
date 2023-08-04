@@ -241,7 +241,7 @@ math: mathjax
 - The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
 
-![w:1050 centernotop](Feature_Fusion_Block.png)
+![w:1100 centernotop](Feature_Fusion_Block.png)
 
 
 ---
@@ -280,51 +280,92 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 
 The loss function will entail a type of loss characteristic of GANs.
 
-$
-\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{S\sim p_{data}(S)} log\left(D(S)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{S}\right)\right)\right) \tag{4.3}
-$
+###### $\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{S\sim p_{data}(S)} log\left(D(S)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{S}\right)\right)\right) \tag{4.3}$
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-To improve the quality of the generator loss, we integrate :
-- cross-entropy loss, L1 loss, 
-- perceptual loss, and total-variation loss.
+<span style="font-size:30px;">Notes :</span>
+
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
+- <span style="font-size:25px;">Input seg map $S$, generated seg map $\hat{S}$ </span>
+- <span style="font-size:25px;">Synthetic data sample $z$ </span>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
+
+<span style="font-size:30px;">To improve the quality of the generator loss, we integrate :</span>
+
+- <span style="font-size:25px;">Cross-entropy loss, L1 loss, </span>
+- <span style="font-size:25px;">Perceptual loss(VGG), and total-variation loss(TV). </span>
+</div>
+</div>
 
 ---
 ### Training Try-On Condition module
-- Cross-entropy loss
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-$\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$
+- <div style="font-size:30px;height:10px">Cross-entropy loss</div>
+### <div style="font-size:25px;">$\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$</div>
 
-- L1 loss
+- <div style="font-size:30px;;height:10px">L1 loss</div>
+### <div style="font-size:25px;"> $\mathcal{L}_{L1} =  \sum_{i=0}^3 w_i  .\left| \left|W(c_m,F_{f_i})-S_c \right| \right|_1 +||\hat{S_c}- S_c||_1 \tag{4.5}$</div>
 
-$\mathcal{L}_{L1} =  \sum_{i=0}^3 w_i  .\left| \left|W(c_m,F_{f_i})-S_c \right| \right|_1 +||\hat{S_c}- S_c||_1 \tag{4.5}$
+- <div style="font-size:30px;;height:10px">VGG loss</div>
+### <div style="font-size:25px;"> $\mathcal{L}_{VGG} = \sum_{i=0}^3 w_i  . \phi(W(c,F_{f_i}),I_c) + \phi(\hat{I_c},I_c) \tag{4.6}$</div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-- VGG loss
-
-$\mathcal{L}_{VGG} = \sum_{i=0}^3 w_i  . \phi(W(c,F_{f_i}),I_c) + \phi(\hat{I_c},I_c) \tag{4.6}$
+- <span style="font-size:25px;">Input seg map $S$, generated seg map $\hat{S}$</span>
+- <span style="font-size:25px;">flow pathway $F_{f_i}$ </span>
+- <span style="font-size:25px;">predicted warped clothing image $\hat{I}_c$ </span>
+- <span style="font-size:25px;">ground truth warped clothing image $I_c$  </span>
+</div>
+</div>
 
 ---
 
 ### Training Try-On Condition module
-- Loss TV
 
-$\mathcal{L}_{TV}= ||\nabla F_{f4}|| \tag{4.7}$
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-- Least square GAN loss
+- <div style="font-size:30px;height:10px">Loss TV</div>
+### <div style="font-size:25px;">$\mathcal{L}_{TV}= ||\nabla F_{f4}|| \tag{4.7}$</div>
 
-$\mathcal{L}_{cGAN}=\underset{G}{min}V_{LS}(G)= \frac{1}{2}E_{z\sim p_{z}(z)} \left[\left(D\left(G(z)\right)-1\right)^2\right] \tag{4.9}$
+- <div style="font-size:30px;;height:10px">Least square GAN loss</div>
+### <div style="font-size:25px;">$\mathcal{L}_{cGAN}=\underset{G}{min}V_{LS}(G)= \frac{1}{2}E_{z\sim p_{z}(z)} \left[\left(D\left(G(z)\right)-1\right)^2\right] \tag{4.9}$</div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
+
+- <span style="font-size:25px;">$F_{f4}$ is the $4^{th}$ flow pathway   </span>
+- <span style="font-size:25px;">$\nabla F_{f4}$ calculates the gradient of the flow pathway </span>
+- <span style="font-size:25px;">cloth mask $c_m$, original cloth image $c$ </span>
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
+- <span style="font-size:25px;">synthetic data sample $z$  </span>
+</div>
+</div>
 
 
 ---
 
 # Training Try-On Condition module
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-Generator loss:
+- <div style="font-size:30px;height:10px">Generator loss:</div>
+### <div style="font-size:25px;">$\mathcal{L}_{TOCG} = \lambda_{CE} \mathcal{L}_{CE} + \mathcal{L}_{cGAN} + \lambda_{L1}\mathcal{L}_{L1} + \mathcal{L}_{VGG} + \lambda_{TV}\mathcal{L}_{TV}$</div>
 
-$$\mathcal{L}_{TOCG} = \lambda_{CE} \mathcal{L}_{CE} + \mathcal{L}_{cGAN} + \lambda_{L1}\mathcal{L}_{L1} + \mathcal{L}_{VGG} + \lambda_{TV}\mathcal{L}_{TV}$$
+- <div style="font-size:30px;;height:10px">Discriminator loss:</div>
+### <div style="font-size:25px;">$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] + \frac{1}{2}\mathbb{E}_{z\sim p_z(z)}[D(G(z))^2]$</div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-Discriminator loss:
+- <span style="font-size:25px;">Generator loss is the combination of above loss </span>
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network  </span>
+- <span style="font-size:25px;">synthetic data sample $z$ </span>
+</div>
+</div>
 
-$$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] + \frac{1}{2}\mathbb{E}_{z\sim p_z(z)}[D(G(z))^2]$$
 
 ---
 
@@ -351,23 +392,47 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 
 - The loss function also involve a type of loss that is typical of GANs. 
 
-$
-\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right) \tag{4.11}
-$
-- To enhance the quality of the generator loss, we incorporate: 
-  - Adversarial loss, perceptual loss, 
-  - feature matching loss, and $L1$ loss
+###### $\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right) \tag{4.11}$
 
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
+
+<span style="font-size:30px;">Notes :</span>
+
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
+- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$ </span>
+- <span style="font-size:25px;">Synthetic data sample $z$ </span>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
+<span style="font-size:30px;">To enhance the quality of the generator loss, we incorporate: </span>
+
+- <span style="font-size:25px;">Adversarial loss, perceptual loss(VGG)</span>
+- <span style="font-size:25px;">Feature matching loss and $L1$ loss </span>
+</div>
+</div>
 
 ---
 ### Training Try-On Image
-$L1$ loss
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-$\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$
+<span style="font-size:25px;">$L1$ loss</span>
 
-Feature Matching loss
+### <span style="font-size:25px;">$\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$</span>
+<span style="font-size:25px;">Feature Matching loss </span>
 
-$\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(G(z)) - Di(I_i)||_1$
+### <span style="font-size:25px;">$\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(G(z)) - Di(I_i)||_1$</span>
+<span style="font-size:25px;">VGG loss</span>
+
+### <div style="font-size:25px;"> $\mathcal{L}_{VGG} = \phi(\hat{I},I) \tag{4.6}$</div>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
+
+- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$</span>
+- <span style="font-size:25px;">$I_i$ is the real image from the $i^{th}$ layer.</span>
+- <span style="font-size:25px;">$D_i(I_i)$ is the feature map from the $i^{th}$ layer of the discriminator </span>
+</div>
+</div>
 
 ---
 ### Training Try-On Image
@@ -379,14 +444,28 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 ---
 
 ### Training Try-On Image
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-Generator loss: 
+- <div style="font-size:30px;height:10px">Generator loss:</div>
+### <div style="font-size:25px;height:0px">$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$</div>
 
-$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$
+- <div style="font-size:25px;;height:0px">Discriminator loss Hinge:</div>
+### <div style="font-size:25px;height:0px">$\mathcal{L}_{D}^{H} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$</div>
+- <div style="font-size:25px;;height:0px">Discriminator loss Least Square:</div>
+### <div style="font-size:25px;height:0px">$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{I\sim p_{data}(I)}[(D(I)-1)^2] + \frac{1}{2}\mathbb{E}_{z\sim p_z(z)}[D(\hat{I})^2]$</div>
+- <div style="font-size:25px;;height:0px">Discriminator loss Cross Entropy:</div>
+### <div style="font-size:25px;">$\mathcal{L}_{D}^{CE}= E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right)$</div>
 
-Discriminator loss:
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-$\mathcal{L}_{D} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$
+- <span style="font-size:25px;">Generator loss is the combination of above loss </span>
+- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$</span>
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network  </span>
+- <span style="font-size:25px;">synthetic data sample $z$ </span>
+</div>
+</div>
 
 ---
 
