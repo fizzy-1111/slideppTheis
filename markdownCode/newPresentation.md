@@ -27,15 +27,23 @@ style: |
       margin-right: auto;
       width: 100%;
     }
+    [alt~="centersmalltop"] {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      margin-top: 50px
+    }
     img[alt~="farLeft"]{
       position: absolute;
-      top: 130px;
-      left: 0px;
+      top: 150px;
+      left: 20px;
     }
     img[alt~="farRight"]{
       position: absolute;
-      top: 130px;
+      top: 150px;
       right: 0px;
+      left: 750px;
     }
     img[alt~="full"] {
       position: absolute;
@@ -269,7 +277,7 @@ Help address vanishing gradients, mode collapse, etc.
 ### <span style="font-size:60px;">System Overview</span>
 </div>
 
-![w:1100 centernotop](framework.png)
+![w:1100 centersmalltop](framework.png)
 
 
 
@@ -336,7 +344,7 @@ Output:
 - The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
 
-![w:700 centernotop](Feature_Fusion_Block.png)
+![w:1050 centernotop](Feature_Fusion_Block.png)
 
 
 ---
@@ -354,19 +362,20 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 
 - Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
 ---
-<div style="margin-left:120px">
+## Discriminator architecture
+<div style="margin-left:100px; margin-top:520px">
 <div style="display:flex;justify-content:left;align-items:center;height:5px; width:">
   
 ### <span style="font-size:32px;">Multiscale Discriminator</span>
-<div style="display:flex;margin-left:200px; align-items:center;height:5px">
+<div style="display:flex;margin-left:240px; align-items:center;height:5px">
   
-### <span style="font-size:32px;margin-:80px">N-Layer Subdiscriminator</span>
+### <span style="font-size:32px;">N-Layer Subdiscriminator</span>
 </div>
 </div>
 
 
-![h:570 farLeft](Discriminator.png)
-![h:570 farRight](SubDiscriminator.png)
+![h:500 farLeft](Discriminator.png)
+![h:500 farRight](SubDiscriminator.png)
 
 ---
 
@@ -430,19 +439,18 @@ $$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{S\sim p_{data}(S)}[(D(S)-1)^2] +
 ---
 ### SPADE Residual Block
 
-![width:1000 centernotop](ResBlock.png)
+![width:1200 centernotop](ResBlock.png)
 
 ---
 
 ### Training Try-On Image
 
-The loss function also involve a type of loss that is typical of GANs. 
+- The loss function also involve a type of loss that is typical of GANs. 
 
 $
 \underset{G}{min} \; \underset{D}{max} V(D,G)=E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right) \tag{4.11}
 $
-
-To enhance the quality of the generator loss, we incorporate: 
+- To enhance the quality of the generator loss, we incorporate: 
   - Adversarial loss, perceptual loss, 
   - feature matching loss, and $L1$ loss
 
@@ -470,7 +478,7 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 
 Generator loss: 
 
-$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$
+$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$$
 
 Discriminator loss:
 
