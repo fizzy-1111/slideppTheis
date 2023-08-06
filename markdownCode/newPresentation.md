@@ -60,7 +60,7 @@ style: |
       width: 100%;
       height: 100%
     }
-
+footer: 26/08/2023 
 math: mathjax
 ---
 <div style="text-align:center">
@@ -289,10 +289,10 @@ The loss function will entail a type of loss characteristic of GANs.
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
 - <span style="font-size:25px;">Ground truth map $S$, generated seg map $\hat{S}$</span>
-- <span style="font-size:25px;">predicted cloth segmentation mask $\hat{S_c}$, ground truth $S_c$</span>
-- <span style="font-size:25px;">flow pathway $F_{f_i}$ </span>
-- <span style="font-size:25px;">predicted warped clothing image $\hat{I}_c$</span>
-- <span style="font-size:25px;">ground truth warped clothing image $I_c$ </span>
+- <span style="font-size:25px;">Predicted cloth segmentation mask $\hat{S_c}$, ground truth $S_c$</span>
+- <span style="font-size:25px;">Flow pathway $F_{f_i}$ </span>
+- <span style="font-size:25px;">Predicted warped clothing image $\hat{I}_c$</span>
+- <span style="font-size:25px;">Ground truth warped clothing image $I_c$ </span>
 </div>
 </div>
 
@@ -313,9 +313,9 @@ The loss function will entail a type of loss characteristic of GANs.
 
 - <span style="font-size:25px;">$F_{f4}$ is the $4^{th}$ flow pathway   </span>
 - <span style="font-size:25px;">$\nabla F_{f4}$ calculates the gradient of the flow pathway </span>
-- <span style="font-size:25px;">cloth mask $c_m$, original cloth image $c$ </span>
+- <span style="font-size:25px;">Cloth mask $c_m$, original cloth image $c$ </span>
 - <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
-- <span style="font-size:25px;">synthetic data sample $z$  </span>
+- <span style="font-size:25px;">Synthetic data sample $z$  </span>
 </div>
 </div>
 
@@ -336,7 +336,7 @@ The loss function will entail a type of loss characteristic of GANs.
 
 - <span style="font-size:25px;">Generator loss is the combination of above loss </span>
 - <span style="font-size:25px;">D is the discriminator network, G is the generator network  </span>
-- <span style="font-size:25px;">synthetic data sample $z$ </span>
+- <span style="font-size:25px;">Synthetic data sample $z$ </span>
 </div>
 </div>
 
@@ -599,7 +599,7 @@ Models trained using original paper parameters with:
 ---
 ## Experiment 1: L1 vs. FM Loss
 
-![width:1200 centernotop](Exp1-chart.png)
+![width:1150 centernotop](Exp1-chart.png)
 - L1 and FM losses improve performance, and FM is more impactful.
 - Lambda values optimal for L1 and FM losses are 10 and 30.
 
