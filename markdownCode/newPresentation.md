@@ -60,7 +60,7 @@ style: |
       width: 100%;
       height: 100%
     }
-footer: 26/06/2023
+footer: 26/08/2023 
 math: mathjax
 ---
 <div style="text-align:center">
@@ -584,7 +584,7 @@ Models trained using original paper parameters with:
 ---
 ## Experiment 1: L1 vs. FM Loss
 
-![width:1150 centernotop](Exp1-chart.png)
+![width:1200 centernotop](Exp1-chart.png)
 - L1 and FM losses improve performance, and FM is more impactful.
 - Lambda values optimal for L1 and FM losses are 10 and 30.
 
