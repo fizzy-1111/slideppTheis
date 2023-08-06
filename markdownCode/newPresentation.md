@@ -2,6 +2,7 @@
 marp: true
 html: true
 theme: gaia
+paginate: true
 class: 
 style: |
     img[alt~="left"] {
@@ -111,7 +112,7 @@ math: mathjax
 ---
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
   
-### <span style="font-size:64px;text-align:center">Related Works</span>
+### <span style="font-size:64px;text-align:center">Our Approach</span>
 </div>
 
 ---
@@ -632,9 +633,9 @@ Models trained using original paper parameters with:
 
 ![width:1070 centernotop](app-result.png)
 
----
+<!-- ---
 
-## Application Overview
+## Application Overview -->
 
 <!-- - Architecture: Microservice 
 
@@ -645,7 +646,7 @@ Models trained using original paper parameters with:
 - User interface: Streamlit
 
 - Deploy: Docker -->
-![width:900 centernotop](app-overview.png)
+<!-- ![width:900 centernotop](app-overview.png) -->
 
 ---
 
