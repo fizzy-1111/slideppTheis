@@ -37,7 +37,7 @@ style: |
     img[alt~="farLeft"]{
       position: absolute;
       top: 150px;
-      left: 20px;
+      left: 150px;
     }
     img[alt~="farRight"]{
       position: absolute;
@@ -197,7 +197,6 @@ math: mathjax
 
 
 
----
 
 # Preprocessing Module
 
@@ -260,42 +259,25 @@ $$\hat{S}= \sigma (\hat{S}_{logit})$$
 - Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
 ---
 ## Discriminator architecture
-<div style="margin-left:100px; margin-top:520px">
-<div style="display:flex;justify-content:left;align-items:center;height:5px; width:">
-  
-### <span style="font-size:32px;">Multiscale Discriminator</span>
-<div style="display:flex;margin-left:240px; align-items:center;height:5px">
-  
-### <span style="font-size:32px;">N-Layer Subdiscriminator</span>
-</div>
-</div>
-
-
-![h:500 farLeft](Discriminator.png)
-![h:500 farRight](SubDiscriminator.png)
+![w:1100 centernotop](Discriminator.png)
+<!-- ![h:500 farRight](SubDiscriminator.png) -->
 
 ---
 
 ### Training Try-On Condition module
 
-The loss function will entail a type of loss characteristic of GANs.
-
-###### $\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{S\sim p_{data}(S)} log\left(D(S)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{S}\right)\right)\right) \tag{4.3}$
 <div style="display:flex;flex-direction:row;">
 <div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-<span style="font-size:30px;">Notes :</span>
+<span style="font-size:30px;">Let :</span>
 
 - <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
-- <span style="font-size:25px;">Input seg map $S$, generated seg map $\hat{S}$ </span>
+- <span style="font-size:25px;">Ground truth seg map $S$, generated seg map $\hat{S}$ </span>
 - <span style="font-size:25px;">Synthetic data sample $z$ </span>
-</div>
-<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-<span style="font-size:30px;">To improve the quality of the generator loss, we integrate :</span>
+The loss function will entail a type of loss characteristic of GANs.
 
-- <span style="font-size:25px;">Cross-entropy loss, L1 loss, </span>
-- <span style="font-size:25px;">Perceptual loss(VGG), and total-variation loss(TV). </span>
+###### $\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{S\sim p_{data}(S)} log\left(D(S)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{S}\right)\right)\right) \tag{4.3}$
 </div>
 </div>
 
@@ -315,10 +297,11 @@ The loss function will entail a type of loss characteristic of GANs.
 </div>
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-- <span style="font-size:25px;">Input seg map $S$, generated seg map $\hat{S}$</span>
+- <span style="font-size:25px;">Ground truth map $S$, generated seg map $\hat{S}$</span>
+- <span style="font-size:25px;">predicted cloth segmentation mask $\hat{S_c}$, ground truth $S_c$</span>
 - <span style="font-size:25px;">flow pathway $F_{f_i}$ </span>
-- <span style="font-size:25px;">predicted warped clothing image $\hat{I}_c$ </span>
-- <span style="font-size:25px;">ground truth warped clothing image $I_c$  </span>
+- <span style="font-size:25px;">predicted warped clothing image $\hat{I}_c$</span>
+- <span style="font-size:25px;">ground truth warped clothing image $I_c$ </span>
 </div>
 </div>
 
@@ -378,7 +361,7 @@ The loss function will entail a type of loss characteristic of GANs.
 
 ### Try-on Image Generator architecture
 
-![width:1200 centernotop](ImageGenerator.png)
+![width:1050 centernotop](ImageGenerator.png)
 
 
 ---
@@ -388,27 +371,26 @@ The loss function will entail a type of loss characteristic of GANs.
 
 ---
 
+## Discriminator architecture
+![w:1100 centernotop](DiscriminatorImage.png)
+
+---
 ### Training Try-On Image
 
-- The loss function also involve a type of loss that is typical of GANs. 
+
+<span style="font-size:30px;">Let :</span>
+
+- <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
+- <span style="font-size:25px;">Ground truth Image $I$, generated try on image $\hat{I}$ </span>
+- <span style="font-size:25px;">Synthetic data sample $z$ </span>
+</div>
+
+The loss function also involve a type of loss that is typical of GANs. 
 
 ###### $\underset{G}{min} \; \underset{D}{max} V(D,G)=E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right) \tag{4.11}$
 
 <div style="display:flex;flex-direction:row;">
 <div style="display:flex;gap:0px;flex-direction:column;align-items:left">
-
-<span style="font-size:30px;">Notes :</span>
-
-- <span style="font-size:25px;">D is the discriminator network, G is the generator network </span>
-- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$ </span>
-- <span style="font-size:25px;">Synthetic data sample $z$ </span>
-</div>
-<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
-<span style="font-size:30px;">To enhance the quality of the generator loss, we incorporate: </span>
-
-- <span style="font-size:25px;">Adversarial loss, perceptual loss(VGG)</span>
-- <span style="font-size:25px;">Feature matching loss and $L1$ loss </span>
-</div>
 </div>
 
 ---
@@ -428,7 +410,7 @@ The loss function will entail a type of loss characteristic of GANs.
 </div>
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$</span>
+- <span style="font-size:25px;">Ground truth $I$, generated try on image $\hat{I}$</span>
 - <span style="font-size:25px;">$I_i$ is the real image from the $i^{th}$ layer.</span>
 - <span style="font-size:25px;">$D_i(I_i)$ is the feature map from the $i^{th}$ layer of the discriminator </span>
 </div>
