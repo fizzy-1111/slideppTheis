@@ -102,12 +102,11 @@ math: mathjax
 | <div style="text-align:center"><img src="Traditional%20Shopping.png" alt="Traditional Shopping" width="400"/> | <div style="text-align:center"><img src="Online%20Shopping.png" alt="Online Shopping" width="350"/> |
 
 ---
-# Virtual Try-On
-- Task:
-  - Digitally try on garments or accessories in a virtual environment
-  - Allows users to see how clothing items would look on them
+# Objectives
+- Virtual Try-On task: Digitally try on garments or accessories in a virtual environment
+- Application allows users to upload human and cloth images and see how clothing items would look on them
 
-![width:800 centernotop](app-introduce.png)
+![width:700 centernotop](app-introduce.png)
 
 ---
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
@@ -419,9 +418,9 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
 - <span style="font-size:25px;">Generator loss is the combination of above loss </span>
-- <span style="font-size:25px;">Input Image $I$, generated try on image $\hat{I}$</span>
+- <span style="font-size:25px;">Original image $I$, generated try on image $\hat{I}$</span>
 - <span style="font-size:25px;">D is the discriminator network, G is the generator network  </span>
-- <span style="font-size:25px;">synthetic data sample $z$ </span>
+- <span style="font-size:25px;">Synthetic data sample $z$ </span>
 </div>
 </div>
 
@@ -451,7 +450,7 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 </div>
 
 ---
- ## Evaluation Metrics
+ <!-- ## Evaluation Metrics
 
  - Structural Similarity Index (SSIM)
 
@@ -499,7 +498,7 @@ With $x$ and $y$ are the two images being compared
 </div>
 </div>
 
----
+--- -->
 
  ## Evaluation Metrics
 
@@ -637,7 +636,7 @@ Models trained using original paper parameters with:
 
 ## Application Overview
 
-- Architecture: Microservice 
+<!-- - Architecture: Microservice 
 
 - Programming language: Python
 
@@ -645,7 +644,8 @@ Models trained using original paper parameters with:
 
 - User interface: Streamlit
 
-- Deploy: Docker
+- Deploy: Docker -->
+![width:900 centernotop](app-overview.png)
 
 ---
 
@@ -660,15 +660,17 @@ Models trained using original paper parameters with:
 ### <span style="font-size:64px;text-align:center">Conclusion</span>
 </div>
 
-
 ---
 
 # Conclusion
 
-- Achieved promising results for virtual try-on application
+- Achieved a virtual try-on application 
 - Provided insights into effectiveness of loss functions when training HR-VITON model
-- Web application makes research accessible
-- Future research: Optimizing the pre-processing steps and exploring alternative models
+
+- Future research: 
+  - Improve the application performance
+  - Optimizing the pre-processing steps
+  - Exploring alternative models
 
 ---
 # References
