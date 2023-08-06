@@ -229,11 +229,10 @@ math: mathjax
 ### Condition Aligning
 Let:
 - Resulting segmentation map $S_{raw}$ after passing Feature Fusion Block
-- The appearance flow map $F_{f_4}$
-- Cloth mask $c_m$
-- The warp function $W(c_m,F_{f_4})$
-- The index of the clothing mask channel $C$.
+- The appearance flow map $F_{f_4}$, cloth mask $c_m$, The warp function $W$
+
 - $i$,$j$, and $k$ are indices across the spatial and channel dimensions.
+- Generated cloth mask segmentation $\hat{S}_c$ and warped clothing image $\hat{I}_c$ .
 ---
 
 ### Condition Aligning
