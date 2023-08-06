@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="qMS3ig1vpzrSqUpysT0w" name="Page-1">
-        <mxGraphModel dx="2613" dy="3697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2065" dy="1879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -211,11 +211,11 @@
                         <mxPoint x="1600" y="140" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="44" value="&lt;span style=&quot;font-size: 40px;&quot;&gt;&lt;i&gt;F&lt;sub&gt;fi&lt;/sub&gt;&lt;/i&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="130" y="910" width="170" height="60" as="geometry"/>
+                <mxCell id="44" value="&lt;span style=&quot;font-size: 40px;&quot;&gt;&lt;i style=&quot;&quot;&gt;F&lt;sub style=&quot;&quot;&gt;fi&lt;/sub&gt;&lt;/i&gt;&lt;/span&gt;&lt;span style=&quot;font-size: 33.3333px;&quot;&gt;&lt;i style=&quot;&quot;&gt;&amp;nbsp;&lt;/i&gt;:The Appearance Flow Map&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="190" y="930" width="390" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="46" value="&lt;i style=&quot;font-size: 40px;&quot;&gt;&lt;span style=&quot;&quot;&gt;F&lt;sub&gt;si&lt;/sub&gt;&lt;/span&gt;&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=2;" parent="1" vertex="1">
-                    <mxGeometry x="565" y="910" width="170" height="60" as="geometry"/>
+                <mxCell id="46" value="&lt;i style=&quot;font-size: 40px;&quot;&gt;&lt;span style=&quot;&quot;&gt;F&lt;sub&gt;si&lt;/sub&gt;&lt;/span&gt;&lt;/i&gt;&lt;span style=&quot;font-size: 33.3333px;&quot;&gt;&lt;i&gt;&amp;nbsp;&lt;/i&gt;:The Segmentation Feature&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="930" width="425" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="47" value="&lt;span style=&quot;font-size: 40px;&quot;&gt;&lt;i&gt;F&lt;sub&gt;fi-1&lt;/sub&gt;&lt;/i&gt;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=2;" parent="1" vertex="1">
                     <mxGeometry x="150" y="70" width="170" height="60" as="geometry"/>

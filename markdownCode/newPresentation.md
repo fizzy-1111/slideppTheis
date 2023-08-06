@@ -206,6 +206,11 @@ math: mathjax
 - Condition Aligning stage --> -->
 
 <!-- </div> -->
+---
+
+## Encoder
+
+![w:1100 centernotop](Encoder.png)
 
 ---
 
@@ -216,18 +221,28 @@ math: mathjax
 - The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
 
-![w:1100 centernotop](Feature_Fusion_Block.png)
+![w:1080 centernotop](Feature_Fusion_Block.png)
 
 
 ---
 
 ### Condition Aligning
+Let:
+- Resulting segmentation map $S_{raw}$ after passing Feature Fusion Block
+- The appearance flow map $F_{f_4}$
+- Cloth mask $c_m$
+- The warp function $W(c_m,F_{f_4})$
+- The index of the clothing mask channel $C$.
+- $i$,$j$, and $k$ are indices across the spatial and channel dimensions.
+---
 
-- Aligns segmentation map $\hat{S}$ with clothing item $c$: 
+### Condition Aligning
+
+- Aligns segmentation map $\hat{S}$:
 
 $$\hat{S}_{logit} = \begin{cases} 
 \hat{S}_{raw}^{k,i,j} & \text{if } k \neq C \\
-\hat{S}_{raw}^{k,i,j} \cdot W(c_m,F_f) & \text{if } k = C  
+\hat{S}_{raw}^{k,i,j} \cdot W(c_m,F_{f_4}) & \text{if } k = C  
 \end{cases}$$
 
 $$\hat{S}= \sigma (\hat{S}_{logit})$$ 
