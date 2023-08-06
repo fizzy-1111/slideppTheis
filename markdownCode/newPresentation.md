@@ -83,7 +83,6 @@ math: mathjax
 - Implementation 
 - Experiments
 - Conclusion
-- Demo: Web application
 
 ---
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
@@ -108,17 +107,6 @@ math: mathjax
   - Digitally try on garments or accessories in a virtual environment
   - Allows users to see how clothing items would look on them
 
-- Our target: 
-  - Investigate and improve a related work
-  - Develop a web application system employing the work
-
----
-
-# Scope
-- Image-based virtual try-on
-- Human Image captured from a front view
-- Clear background and minimal noise
-
 ![width:800 centernotop](app-introduce.png)
 
 ---
@@ -129,13 +117,13 @@ math: mathjax
 
 ---
 
-# Several approaches to Virtual Try-on
+## Several approaches to Virtual Try-on
 
-- Image-based (2D) virtual try-on
-
-- 3D virtual try-on
-
-- Multi-pose guided virtual try-on
+|                 |                     |  |
+|-----------------|---------------------|--|
+| <div style="width:320px">**Image-based (2D) Virtual Try-on** | <div style="width:300px">**3D Virtual Try-on**  | <div style="width:370px"> **Multi-pose guided virtual try-on** |
+| <span style="font-size:30px">Use a 2D image of the person and the clothing item</span>| <span style="font-size:30px">Employs 3D models to simulate clothing on a person's body </span> | <span style="font-size:30px">Transfer clothes onto a person image under diverse poses </span>|
+|<span style="font-size:30px">Suitable for mobile apps and e-commerce platforms </span> | <span style="font-size:30px">Commonly used in virtual reality (VR) applications and high-end fashion industry </span>|<span style="font-size:30px">Used in various applications for versatile try-on experiences </span>|
 
 <!-- - Virtual try-on with diffusion models -->
 
@@ -168,18 +156,6 @@ math: mathjax
 - <span style="font-size:30px">SPG-VTON (2021): Semantic Prediction Guidance for Multi-pose Virtual Try-on [8]</span>
 
 
-<!-- ---
-# Virtual Try-on with Diffusion Models
-
-- Uses diffusion models like DDPM instead of GANs
-
-- Provides more control over quality and diversity
-
-- More stable training process
-
-- Notable works: TryOnDiffusion, LaDI-VTON -->
-
-
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
   
 ### <span style="font-size:64px;text-align:center">Implementation</span>
@@ -202,13 +178,13 @@ math: mathjax
 
 ![width:800 centernotop](pre-processing.png)
 
----
+<!-- ---
 
 ![width:850 centernotop](pre-processing_agnostic.png)
 
 <div style="color: black; font-size: 30px; margin-top: 30px; text-align: center; ">
   <b>Clothing-agnostic Processing Flow </b>
-</div>
+</div> -->
 
 ---
 
@@ -475,17 +451,94 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 </div>
 
 ---
- # Evaluation Metrics
- - SSIM
+ ## Evaluation Metrics
+
+ - Structural Similarity Index (SSIM)
+
  $SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$
 
- - MSE
+ - Mean Squared Error (MSE)
+
  $MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$
 
- - LPIPS
+ - Learned Perceptual Image Patch Similarity (LPIPS)
+
  $LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|_2$
 
 ---
+
+ ## Evaluation Metrics
+<div style="display:flex;flex-direction:row;">
+<div style="display:flex;gap:0px;flex-direction:column;align-items:left">
+
+<span style="font-size:30px;">
+
+ - Structural Similarity Index (SSIM)
+ 
+ $SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$
+
+ - Mean Squared Error (MSE)
+
+ $MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$
+
+ - Learned Perceptual Image Patch Similarity (LPIPS)
+
+ $LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|_2$
+
+</span>
+</div>
+
+<div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
+
+<span style="font-size:30px;"> 
+
+With $x$ and $y$ are the two images being compared
+
+</span>
+
+</div>
+</div>
+
+---
+
+ ## Evaluation Metrics
+
+Structural Similarity Index (SSIM)
+ 
+$SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$
+
+With $x$ and $y$ are the two images being compared
+- $\mu_x$ and $\mu_y$ are the mean values of $x$ and $y$
+- $\sigma_x$ and $\sigma_y$ are the standard deviations of $x$ and $y$
+- $\sigma_{xy}$ is the covariance between $x$ and $y$
+- $C_1$ and $C_2$ are constants to stabilize the division
+
+---
+
+ ## Evaluation Metrics
+
+Mean Squared Error (MSE)
+
+$MSE(x, y) = \frac{1}{n}\sum_{i=1}^{n}(x_i - y_i)^2$
+
+With $x$ and $y$ are the two images being compared
+- $n$ is the total number of pixels in the images
+- $x_i$ and $y_i$ are the pixel values at position $i$ in $x$ and $y$, respectively.
+
+---
+
+ ## Evaluation Metrics
+
+Learned Perceptual Image Patch Similarity (LPIPS)
+
+$LPIPS(x, y) = \frac{1}{N}\sum_{i=1}^{N}|f_i(x) - f_i(y)|_2$
+
+With $x$ and $y$ are the two images being compared
+- $N$ is the number of image patches
+- $f_i(x)$ and $f_i(y)$ are the feature representations of the $i$-th patch in $x$ and $y$, respectively
+
+--- 
+
 # Experiments
 
 - Goal: Investigate and improve generator model performance by exploring different loss functions
@@ -509,16 +562,18 @@ Analyze specific impact of each GAN loss function in combination with L1 and FM 
 
 ## Experiment 1: L1 vs. FM Loss
 
-<!-- <div style="text-align:center"><img src="Exp1-table.png" width="650" style="float:right;"></div> -->
-Try different lambda values for the L1 and FM losses.:
+<span style="font-size:30px">
+
+Try different lambda values for the L1 and FM losses:
 - No L1 and no FM losses
 - Fix the FM lambda at 10 and vary L1 lambda between 10 and 40
 - Fix the L1 lambda at 10 and vary FM lambda between 10 and 40
 
-Models trained using original paper parameters:
+Models trained using original paper parameters with:
 - $512\times384$ resolution
 - 8 batch size
 - Training steps: 30,000
+</span>
 
 ---
 
@@ -531,31 +586,39 @@ Models trained using original paper parameters:
 
 ![width:1200 centernotop](Exp1-chart.png)
 - L1 and FM losses improve performance, and FM is more impactful.
-- Lambda values optimal for L1 and FM losses are 30 and 10.
+- Lambda values optimal for L1 and FM losses are 10 and 30.
 
 ---
 
-## Experiment 2: GAN Losses
+### Experiment 2: GAN Losses combine with L1 and FM
 
-- Use parameters and optimal lambda values found Experiment 1
+<span style="font-size:28px">
+
 - Try different GAN loss functions: **CE GAN loss**, **LS GAN loss** and **Hinge GAN loss**
 - As for each GAN loss function:
   - No L1 and no FM
   - Include L1 without FM
   - Include FM without L1
   - Include both L1 and FM
+- Models trained using original paper parameters with:
+  - $512\times384$ resolution
+  - 8 batch size
+  - Training steps: 30,000
+  - Optimal lambda values found in Experiment 1: 10 for L1 and 30 for FM
+</span>
+
 ---
 
-## Experiment 2: GAN Losses
+### Experiment 2: GAN Losses combine with L1 and FM
 
 ![width:500 centernotop](Exp2-table.png)
 
 ---
 
-## Experiment 2: GAN Losses
+### Experiment 2: GAN Losses combine with L1 and FM
 
 ![width:1200 centernotop](Exp2-chart.png)
-- GAN loss combined with L1 and FM acan significantly impact the performance of a generator
+- GAN loss combined with L1 and FM can significantly impact the performance of a generator
 - Cross-Entropy (CE) GAN loss function is the most effective
 
 --- 
@@ -586,31 +649,17 @@ Models trained using original paper parameters:
 
 ---
 
-## Application Pipeline
+#### Application Pipeline
 
-![width:950 centernotop](app-pipeline.png)
+![width:1020 centernotop](app-pipeline.png)
 
 ---
-
-<!-- ## Discussion
-
-
-
---- -->
-
-<!-- ## Limitations
-
-- HR-VITON model requires resource intensive for training.
-- Complex pre-processing.
-- Application works but slow runtime, particularly segmentation map of the human.
-- Pre-processing must match dataset
-  
---- -->
 
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
   
 ### <span style="font-size:64px;text-align:center">Conclusion</span>
 </div>
+
 
 ---
 
