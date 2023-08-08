@@ -210,7 +210,7 @@ math: mathjax
 
 ## Encoder
 
-![w:1100 centernotop](Encoder.png)
+![w:1050 centernotop](Encoder.png)
 
 ---
 
@@ -221,7 +221,7 @@ math: mathjax
 - The two pathways communicate with each other to determine $F_{f_i}$ and $F_{s_i}$ simultaneously. -->
 
 
-![w:1080 centernotop](Feature_Fusion_Block.png)
+![w:1000 centernotop](Feature_Fusion_Block.png)
 
 
 ---
