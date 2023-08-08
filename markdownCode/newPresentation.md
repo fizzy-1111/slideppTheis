@@ -103,16 +103,18 @@ math: mathjax
 | <div style="text-align:center"><img src="Traditional%20Shopping.png" alt="Traditional Shopping" width="400"/> | <div style="text-align:center"><img src="Online%20Shopping.png" alt="Online Shopping" width="350"/> |
 
 ---
-# Objectives
-- Virtual Try-On task: Digitally try on garments or accessories in a virtual environment
-- Application allows users to upload human and cloth images and see how clothing items would look on them
+# Problem Statements
+- Virtual try-on task: Digitally try-on clothes or accessories
+- Require only a human image and a cloth image
+- Front view, with a clear background and minimal noise
 
 ![width:700 centernotop](app-introduce.png)
 
 ---
+
 <div style="display:flex;justify-content:center;align-items:center;height:100%">
   
-### <span style="font-size:64px;text-align:center">Our Approach</span>
+### <span style="font-size:64px;text-align:center">Related Works</span>
 </div>
 
 ---
@@ -161,8 +163,22 @@ math: mathjax
 ### <span style="font-size:64px;text-align:center">Implementation</span>
 </div>
 
+---
+<div style="display:flex;justify-content:center;align-items:center;height:100%">
+  
+### <span style="font-size:64px;text-align:center">Our Approach</span>
+</div>
 
 ---
+
+# Objectives
+
+- Focus on HR-VITON[1] model, an promising image-based virtual try-on approach
+- Investigate and improve the performance of the model by exploring different loss functions
+- A virtual try-on web application applying the model
+
+---
+
 <div style="display:flex;justify-content:left;align-items:center;height:5px">
   
 ### <span style="font-size:60px;">System Overview</span>
@@ -170,8 +186,7 @@ math: mathjax
 
 ![w:1100 centersmalltop](framework.png)
 
-
-
+---
 
 
 # Preprocessing Module
@@ -277,7 +292,7 @@ The loss function will entail a type of loss characteristic of GANs.
 <div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
 - <div style="font-size:30px;height:10px">Cross-entropy loss</div>
-### <div style="font-size:25px;">$\mathcal{L}_{CE} = L(S, \hat{S}) = - [S \log p(S|\hat{S})+(1-S)\log(1-p(S|\hat{S}))] \tag{4.4}$</div>
+### <div style="font-size:25px;">$\mathcal{L}_{CE} = \sum_{i=1}^H\sum_{j=1}^W\sum_{k=1}^CS_{ijk}log(\hat{S}_{ijk})$</div>
 
 - <div style="font-size:30px;;height:10px">L1 loss</div>
 ### <div style="font-size:25px;"> $\mathcal{L}_{L1} =  \sum_{i=0}^3 w_i  .\left| \left|W(c_m,F_{f_i})-S_c \right| \right|_1 +||\hat{S_c}- S_c||_1 \tag{4.5}$</div>
