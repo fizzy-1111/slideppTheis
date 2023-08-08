@@ -81,7 +81,7 @@ math: mathjax
 # Outline
 - Introduction
 - Related works 
-- Implementation 
+- Our approach 
 - Experiments
 - Conclusion
 
