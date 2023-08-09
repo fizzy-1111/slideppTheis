@@ -211,7 +211,7 @@ math: mathjax
 ---
 
 ## Generator architecture
-![centernotop](Generator.png)
+![w:1050 centernotop](Generator.png)
 
 <!-- <div style="color: white; font-size: 30px; margin-top: 150px; margin-left:700px ">
 <b>Generator Architecture</b>
@@ -223,9 +223,7 @@ math: mathjax
 <!-- </div> -->
 ---
 
-## Encoder
-
-![w:1050 centernotop](Encoder.png)
+![w:1300 centernotop](Encoder.png)
 
 ---
 
@@ -240,28 +238,9 @@ math: mathjax
 
 
 ---
-
 ### Condition Aligning
-Let:
-- Resulting segmentation map $S_{raw}$ after passing Feature Fusion Block
-- The appearance flow map $F_{f_4}$, cloth mask $c_m$, The warp function $W$
+![h:500 w:700 centernotop](ConditionAligning.png)
 
-- $i$,$j$, and $k$ are indices across the spatial and channel dimensions.
-- Generated cloth mask segmentation $\hat{S}_c$ and warped clothing image $\hat{I}_c$ .
----
-
-### Condition Aligning
-
-- Aligns segmentation map $\hat{S}$:
-
-$$\hat{S}_{logit} = \begin{cases} 
-\hat{S}_{raw}^{k,i,j} & \text{if } k \neq C \\
-\hat{S}_{raw}^{k,i,j} \cdot W(c_m,F_{f_4}) & \text{if } k = C  
-\end{cases}$$
-
-$$\hat{S}= \sigma (\hat{S}_{logit})$$ 
-
-- Remove occlusion and get final $\hat{S}_c$ and $\hat{I}_c$.
 ---
 ## Discriminator architecture
 ![w:1100 centernotop](Discriminator.png)
@@ -307,6 +286,7 @@ The loss function will entail a type of loss characteristic of GANs.
 - <span style="font-size:25px;">Flow pathway $F_{f_i}$ </span>
 - <span style="font-size:25px;">Predicted warped clothing image $\hat{I}_c$</span>
 - <span style="font-size:25px;">Ground truth warped clothing image $I_c$ </span>
+-  <span style="font-size:25px;">$\phi$ represent a loss function that measures the difference between two images</span>
 </div>
 </div>
 
@@ -418,6 +398,7 @@ The loss function also involve a type of loss that is typical of GANs.
 - <span style="font-size:25px;">Ground truth $I$, generated try on image $\hat{I}$</span>
 - <span style="font-size:25px;">$I_i$ is the real image from the $i^{th}$ layer.</span>
 - <span style="font-size:25px;">$D_i(I_i)$ is the feature map from the $i^{th}$ layer of the discriminator </span>
+-  <span style="font-size:25px;">$\phi$ represent a loss function that measures the difference between two images</span>
 </div>
 </div>
 
