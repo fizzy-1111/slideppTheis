@@ -282,19 +282,25 @@ The loss function also involve a type of loss that is typical of GANs.
 
 ---
 ### Training Try-On Image
+
+- Generator loss: 
+$$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$$
+
+- Generator loss is the combination of above losses
+- $\mathcal{L}_{TOIG}^{cGAN}$ objective function depends on the chosen loss in the experiment
+---
+### Training Try-On Image
 Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 - Hinge Loss
 - Least square loss
 - Cross Entropy
+
 
 ---
 
 ### Training Try-On Image
 <div style="display:flex;flex-direction:row;">
 <div style="display:flex;gap:0px;flex-direction:column;align-items:left">
-
-- <div style="font-size:30px;height:10px">Generator loss:</div>
-### <div style="font-size:25px;height:0px">$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$</div>
 
 - <div style="font-size:25px;;height:0px">Discriminator loss Hinge:</div>
 ### <div style="font-size:25px;height:0px">$\mathcal{L}_{D}^{H} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$</div>
@@ -306,7 +312,6 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 </div>
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
-- <span style="font-size:25px;">Generator loss is the combination of above loss </span>
 - <span style="font-size:25px;">Original image $I$, generated try on image $\hat{I}$</span>
 - <span style="font-size:25px;">D is the discriminator network, G is the generator network  </span>
 - <span style="font-size:25px;">Synthetic data sample $z$ </span>
