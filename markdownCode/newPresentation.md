@@ -228,10 +228,10 @@ math: mathjax
 ![width:1050 centernotop](ImageGenerator.png)
 
 
----
+<!-- ---
 ### SPADE Residual Block
 
-![width:1200 centernotop](ResBlock.png)
+![width:1200 centernotop](ResBlock.png) -->
 
 ---
 
@@ -391,6 +391,15 @@ With $x$ and $y$ are the two images being compared
 
  ## Evaluation Metrics
 
+ We use three main metrics to evaluate the quality of generated images:
+ - Structural Similarity Index (SSIM)
+ - Mean Squared Error (MSE)
+ - Learned Perceptual Image Patch Similarity (LPIPS)
+
+ --- 
+
+ ## Evaluation Metrics
+
 Structural Similarity Index (SSIM)
  
 $SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}$
@@ -469,7 +478,13 @@ Models trained using original paper parameters with:
 
 ![width:650 centernotop](Exp1-table.png)
 
+--- 
+## Experiment 1: L1 vs. FM Loss
+
+![width:1150 centernotop](Exp1.png)
+
 ---
+
 ## Experiment 1: L1 vs. FM Loss
 
 ![width:1150 centernotop](Exp1-chart.png)
@@ -501,13 +516,18 @@ Models trained using original paper parameters with:
 
 ![width:500 centernotop](Exp2-table.png)
 
+--- 
+### Experiment 2: GAN Losses combine with L1 and FM
+
+![width:1150 centernotop](Exp2.png)
+
 ---
 
 ### Experiment 2: GAN Losses combine with L1 and FM
 
 ![width:1200 centernotop](Exp2-chart.png)
-- GAN loss combined with L1 and FM can significantly impact the performance of a generator
-- Cross-Entropy (CE) GAN loss function is the most effective
+- GAN loss with L1 and FM can significantly impact the performance
+- Cross-Entropy (CE) GAN loss is more consistent but Hinge GAN Loss keep the cloth texture
 
 --- 
 
@@ -521,11 +541,11 @@ Models trained using original paper parameters with:
 
 ![width:1070 centernotop](app-result.png)
 
-<!-- ---
+---
 
-## Application Overview -->
+## Application Overview
 
-<!-- - Architecture: Microservice 
+- Architecture: Microservice 
 
 - Programming language: Python
 
@@ -533,7 +553,8 @@ Models trained using original paper parameters with:
 
 - User interface: Streamlit
 
-- Deploy: Docker -->
+- Deploy: Docker
+
 <!-- ![width:900 centernotop](app-overview.png) -->
 
 ---
