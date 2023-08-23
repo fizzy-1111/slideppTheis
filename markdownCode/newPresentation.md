@@ -73,7 +73,7 @@ math: mathjax
 
 #### <span style="font-size:40px">THESIS ADVISORS</span>
 
-<span style="font-size:30px">Mr. PHẠM MINH HOÀNG - Dr. VÕ HOÀI VIỆT</span>
+<span style="font-size:30px">MSc. PHẠM MINH HOÀNG - Dr. VÕ HOÀI VIỆT</span>
 
 </div>
 
@@ -124,8 +124,8 @@ math: mathjax
 |                 |                     |  |
 |-----------------|---------------------|--|
 | <div style="width:320px">**Image-based (2D) Virtual Try-on** | <div style="width:300px">**3D Virtual Try-on**  | <div style="width:370px"> **Multi-pose guided virtual try-on** |
-| <span style="font-size:30px">Use a 2D image of the person and the clothing item</span>| <span style="font-size:30px">Employs 3D models to simulate clothing on a person's body </span> | <span style="font-size:30px">Transfer clothes onto a person image under diverse poses </span>|
-|<span style="font-size:30px">Suitable for mobile apps and e-commerce platforms </span> | <span style="font-size:30px">Commonly used in virtual reality (VR) applications and high-end fashion industry </span>|<span style="font-size:30px">Used in various applications for versatile try-on experiences </span>|
+| <span style="font-size:35px">Use a 2D image of the person and the clothing item</span>| <span style="font-size:35px">Employs 3D models to simulate clothing on a person's body </span> | <span style="font-size:35px">Transfer clothes onto a person image under diverse poses </span>|
+<!-- |<span style="font-size:30px">Suitable for mobile apps and e-commerce platforms </span> | <span style="font-size:30px">Commonly used in virtual reality (VR) applications and high-end fashion industry </span>|<span style="font-size:30px">Used in various applications for versatile try-on experiences </span>| -->
 
 <!-- - Virtual try-on with diffusion models -->
 
@@ -173,8 +173,8 @@ math: mathjax
 
 # Objectives
 
-- Focus on HR-VITON[1] model, an promising image-based virtual try-on approach
-- Investigate and improve the performance of the model by exploring different loss functions
+- We choose HR-VITON[1] model, a promising image-based virtual try-on approach, as our baseline.
+- Investigate and improve the performance of the model by exploring different loss functions.
 - A virtual try-on web application applying the model
 
 ---
@@ -283,13 +283,9 @@ The loss function also involve a type of loss that is typical of GANs.
 ---
 ### Training Try-On Image
 
-- Generator loss: 
+Generator loss: 
 $$\mathcal{L}_{TOIG} = \mathcal{L}_{TOIG}^{cGAN} + \lambda_{TOIG}^{VGG}\mathcal{L}_{TOIG}^{VGG} + \lambda_{TOIG}^{FM}\mathcal{L}_{TOIG}^{FM} + \lambda_{TOIG}^{L1}\mathcal{L}_{TOIG}^{L1}$$
 
-- Generator loss is the combination of above losses
-- $\mathcal{L}_{TOIG}^{cGAN}$ objective function depends on the chosen loss in the experiment
----
-### Training Try-On Image
 Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 - Hinge Loss
 - Least square loss
@@ -483,11 +479,6 @@ Models trained using original paper parameters with:
 
 ![width:650 centernotop](Exp1-table.png)
 
---- 
-## Experiment 1: L1 vs. FM Loss
-
-![width:1150 centernotop](Exp1.png)
-
 ---
 
 ## Experiment 1: L1 vs. FM Loss
@@ -495,6 +486,11 @@ Models trained using original paper parameters with:
 ![width:1150 centernotop](Exp1-chart.png)
 - L1 and FM losses improve performance, and FM is more impactful.
 - Lambda values optimal for L1 and FM losses are 10 and 30.
+
+--- 
+## Experiment 1: L1 vs. FM Loss
+
+![width:1150 centernotop](Exp1.png)
 
 ---
 
@@ -521,18 +517,18 @@ Models trained using original paper parameters with:
 
 ![width:500 centernotop](Exp2-table.png)
 
---- 
-### Experiment 2: GAN Losses combine with L1 and FM
-
-![width:1150 centernotop](Exp2.png)
-
 ---
 
 ### Experiment 2: GAN Losses combine with L1 and FM
 
 ![width:1200 centernotop](Exp2-chart.png)
 - GAN loss with L1 and FM can significantly impact the performance
-- Cross-Entropy (CE) GAN loss is more consistent but Hinge GAN Loss keep the cloth texture
+- Cross-Entropy (CE) GAN loss is the most effective in this task
+
+--- 
+### Experiment 2: GAN Losses combine with L1 and FM
+
+![width:1150 centernotop](Exp2.png)
 
 --- 
 
@@ -588,6 +584,19 @@ Models trained using original paper parameters with:
   - Exploring alternative models
 
 ---
+
+<div style="text-align:center">
+
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''
+# <span style="font-size:100px">THANK YOU</span>
+
+# <span style="font-size:70px">FOR LISTENING</span>
+# ''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+</div>
+
+---
+
 # References
 
 <span style="font-size:30px">
