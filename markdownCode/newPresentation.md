@@ -267,16 +267,18 @@ The loss function also involve a type of loss that is typical of GANs.
 ### <span style="font-size:25px;">$\mathcal{L}_{L1} =  ||\hat{I}- I||_1 \tag{4.12}$</span>
 <span style="font-size:25px;">Feature Matching loss </span>
 
-### <span style="font-size:25px;">$\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(G(z)) - Di(I_i)||_1$</span>
+### <span style="font-size:25px;">$\mathcal{L}_{FM}=\frac{1}{k}\sum_{i=0}^{k-1}||Di(\hat{I_i}) - Di(I_i)||_1$</span>
 <span style="font-size:25px;">VGG loss</span>
 
-### <div style="font-size:25px;"> $\mathcal{L}_{VGG} = \phi(\hat{I},I) \tag{4.6}$</div>
+### <div style="font-size:25px;"> $\mathcal{L}_{VGG} =\sum_{i}^{n} \tau_i || \phi_i(\hat{I})-\phi_i(I))||_1 \tag{4.6}$</div>
 </div>
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:right">
 
 - <span style="font-size:25px;">Ground truth $I$, generated try on image $\hat{I}$</span>
 - <span style="font-size:25px;">$I_i$ is the real image from the $i^{th}$ layer.</span>
-- <span style="font-size:25px;">$D_i(I_i)$ is the feature map from the $i^{th}$ layer of the discriminator </span>
+- <span style="font-size:25px;">$D_i(I_i)$ is the feature map from the $i^{th}$ layer of the discriminator. </span>
+- <span style="font-size:25px;">$\phi_i(.)$ are features maps produced by a pretrained VGG19 model.</span>
+- <span style="font-size:25px;">$\tau_i$ is the $i$-th balancing weight.</span>
 </div>
 </div>
 
@@ -298,11 +300,11 @@ Apply different loss to $\mathcal{L}_{TOIG}^{cGAN}$ in each experiment
 <div style="display:flex;flex-direction:row;">
 <div style="display:flex;gap:0px;flex-direction:column;align-items:left">
 
-- <div style="font-size:25px;;height:0px">Discriminator loss Hinge:</div>
+- <div style="font-size:25px;;height:0px">Experiment: Loss Hinge</div>
 ### <div style="font-size:25px;height:0px">$\mathcal{L}_{D}^{H} = -\mathbb{E}_{I\sim p_{data}}[\text{max}(0, -1 + D(I))] - \mathbb{E}_{z\sim p_z}[\text{max}(0, -1 - D(\hat{I}))]$</div>
-- <div style="font-size:25px;;height:0px">Discriminator loss Least Square:</div>
+- <div style="font-size:25px;;height:0px">Experiment: Loss Least Square:</div>
 ### <div style="font-size:25px;height:0px">$\mathcal{L}_{D}^{LS} = \frac{1}{2}\mathbb{E}_{I\sim p_{data}(I)}[(D(I)-1)^2] + \frac{1}{2}\mathbb{E}_{z\sim p_z(z)}[D(\hat{I})^2]$</div>
-- <div style="font-size:25px;;height:0px">Discriminator loss Cross Entropy:</div>
+- <div style="font-size:25px;;height:0px">Experiment: Loss Cross Entropy:</div>
 ### <div style="font-size:25px;">$\mathcal{L}_{D}^{CE}= E_{I\sim p_{data}(I)} log\left(D(I)\right) + E_{z\sim p_{z}(z)} \left(1-\left(D\left(\hat{I}\right)\right)\right)$</div>
 
 </div>
